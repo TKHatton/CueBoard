@@ -1,0 +1,32 @@
+# ==================================================================================================
+# GENERAL SETTINGS
+# ==================================================================================================
+
+type: plugin4
+name: CueBoard
+displayName: CueBoard - Meeting Control Surface
+description: The first physical control surface purpose-built for virtual meetings.
+pluginFileName: CueBoardPlugin.dll
+version: 1.0
+author: Tyler
+copyright: Copyright © 2026 Tyler. All rights reserved.
+
+# ==================================================================================================
+# PLUGIN PROPERTIES
+# ==================================================================================================
+
+pluginFolderWin: bin
+
+supportedDevices:
+    - LoupedeckCtFamily
+
+#pluginCapabilities:
+
+minimumLoupedeckVersion: 6.0
+
+# ==================================================================================================
+# LOUPEDECK MARKETPLACE SETTINGS
+# ==================================================================================================
+
+license: MIT
+licenseUrl: https://opensource.org/licenses/MIT

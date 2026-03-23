@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "v5R6tSEC5+w=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ltken\\OneDrive\\Documents\\GitHub\\CueBoard\\tools\\IconGenerator\\IconGenerator.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ltken\\.nuget\\packages\\microsoft.win32.systemevents\\8.0.0\\microsoft.win32.systemevents.8.0.0.nupkg.sha512",
+    "C:\\Users\\ltken\\.nuget\\packages\\system.drawing.common\\8.0.8\\system.drawing.common.8.0.8.nupkg.sha512"
+  ],
+  "logs": []
+}
