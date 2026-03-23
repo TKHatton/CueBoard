@@ -1,5 +1,57 @@
 # CueBoard Session Log
 
+## Session 3 — March 23, 2026 (Evening — Continued Testing & Refinement)
+
+### What Got Fixed / Added
+- ✅ Timer toggle — now press once to start, press again to pause (not reset)
+- ✅ Min/Max Window command added — sends Win+Up/Down for dialpad bottom-left
+- ✅ Branded HTML export upgraded — dark theme, color-coded, auto-opens in browser
+- ✅ Reaction simplified — back to one-press = clap (removed dial selector complexity)
+- ✅ Dialpad defaults restored after accidentally overwriting them
+- ✅ Keypad labeled correctly as CueBoard across all 3 pages
+- ✅ Clear Timer replaced with Participants button on Page 2
+
+### What's Still Not Working
+- ❌ Dial rotation — still not responding, biggest remaining blocker
+- ❌ Admit button — Zoom has no global shortcut for waiting room admission
+- ❌ Page 3 screen UI — pressing Assign/Add Note needs on-screen input fields
+- ❌ Page 3 empty slots — 4 buttons still unassigned on Page 3
+- ❌ Icons still need Adobe-style redesign (large, bold, fill entire button)
+- ❌ Logi Options+ froze at end of session — needs restart
+
+### Layout Changes Made by Tyler
+- Moved back/page-nav button to bottom-left of keypad
+- Replaced Clear Timer with Participants on Page 2
+- Reaction set to direct clap (single press)
+- Mute and Camera On/Off on dialpad corner buttons
+- Min/Max Window planned for dialpad bottom-left
+
+### Key Insights from This Session
+- The dial is the single most important thing to fix — timer duration and reaction selection depend on it
+- Reaction dial selector was overengineered — nobody wants a 3-step process for a clap
+- Timer should start on press, pause on press — duration set by dial before pressing
+- Min/Max Zoom window is genuinely useful during hosting
+- Zoom has NO global shortcut for admitting from waiting room — need alternative approach
+- User is dyslexic — big visual icons matter more than text labels
+- Logi's official Zoom plugin is the benchmark to beat
+
+### Future Ideas Captured (Post-Hackathon)
+- AI Launcher page — quick-open Claude, ChatGPT, Gemini, OpenAI with project shortcuts
+- Per-app pages for each AI tool (projects, gems, incognito chat)
+- Personalizable reaction button (choose your default reaction)
+- Whiteboard/AI modes page for newer Zoom features
+- Note taker auto-admission feature
+
+### Next Session Priorities (Ordered)
+1. **Fix the dial** — get rotation working for timer duration and reactions
+2. **Test export** — flag some moments, press Export, verify HTML report
+3. **Fill Page 3 empty slots** — decide what goes in 4 remaining buttons
+4. **Icon redesign** — Adobe-style large bold icons filling entire button
+5. **Action Ring Zoom profile** — set up without breaking defaults
+6. **Demo prep** — record a clean demo video showing the full workflow
+
+---
+
 ## Session 2 — March 22, 2026 (Evening)
 
 ### Hardware Setup
