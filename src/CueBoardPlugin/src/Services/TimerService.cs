@@ -35,18 +35,35 @@ namespace Loupedeck.CueBoardPlugin.Services
             PluginLog.Info($"Timer duration set to {this.DurationMinutes} minutes");
         }
 
+        public Boolean IsPaused { get; private set; } = false;
+
         public void Start()
         {
             if (this.IsRunning)
             {
+                // Running → Pause
                 this.Pause();
                 return;
             }
 
+            if (this.IsPaused && this.RemainingSeconds > 0)
+            {
+                // Resume from paused state
+                this._totalSeconds = this.RemainingSeconds;
+                this._startTime = DateTime.UtcNow;
+                this.IsRunning = true;
+                this.IsPaused = false;
+                this._timer.Start();
+                PluginLog.Info($"Timer resumed: {this.RemainingSeconds} seconds remaining");
+                return;
+            }
+
+            // Fresh start
             this._totalSeconds = this.DurationMinutes * 60;
             this.RemainingSeconds = this._totalSeconds;
             this._startTime = DateTime.UtcNow;
             this.IsRunning = true;
+            this.IsPaused = false;
             this._timer.Start();
             PluginLog.Info($"Timer started: {this.DurationMinutes} minutes");
         }
@@ -54,6 +71,7 @@ namespace Loupedeck.CueBoardPlugin.Services
         public void Pause()
         {
             this.IsRunning = false;
+            this.IsPaused = true;
             this._timer.Stop();
             PluginLog.Info($"Timer paused at {this.RemainingSeconds} seconds remaining");
         }
@@ -61,6 +79,7 @@ namespace Loupedeck.CueBoardPlugin.Services
         public void Reset()
         {
             this.IsRunning = false;
+            this.IsPaused = false;
             this._timer.Stop();
             this.RemainingSeconds = 0;
             this.DurationMinutes = 5;

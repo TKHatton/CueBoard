@@ -17,16 +17,22 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page2
                 return;
             }
 
-            if (!timer.IsRunning)
+            if (timer.RemainingSeconds <= 0 && !timer.IsRunning && !timer.IsPaused)
             {
-                // Starting the timer — launch overlay on screen
+                // Timer is idle or expired — start fresh
                 timer.Start();
                 this.CueBoard?.TimerOverlay?.ShowTimer(timer.DurationMinutes * 60);
             }
-            else
+            else if (timer.IsRunning)
             {
-                // Pausing
+                // Running → Pause
                 timer.Pause();
+            }
+            else if (timer.IsPaused)
+            {
+                // Paused → Resume
+                timer.Start();
+                this.CueBoard?.TimerOverlay?.ShowTimer(timer.RemainingSeconds);
             }
 
             this.ActionImageChanged();
@@ -46,13 +52,14 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page2
                 return this.DrawButton(imageSize, remaining, new BitmapColor(220, 140, 30));
             }
 
-            if (timer.RemainingSeconds > 0)
+            if (timer.IsPaused && timer.RemainingSeconds > 0)
             {
                 var remaining = timer.GetDisplayTime();
-                return this.DrawButton(imageSize, $"PAUSED\n{remaining}", new BitmapColor(120, 80, 30));
+                return this.DrawButton(imageSize, $"❚❚ {remaining}", new BitmapColor(120, 80, 30));
             }
 
-            return this.DrawIcon(imageSize, "timer.png");
+            // Idle — show duration that will start
+            return this.DrawButton(imageSize, $"▶ {timer.DurationMinutes}:00", new BitmapColor(80, 80, 80));
         }
     }
 }

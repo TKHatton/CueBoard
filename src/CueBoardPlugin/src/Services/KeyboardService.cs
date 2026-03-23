@@ -13,8 +13,11 @@ namespace Loupedeck.CueBoardPlugin.Services
         // Virtual key codes
         private const Byte VK_MENU = 0x12;     // Alt
         private const Byte VK_SHIFT = 0x10;    // Shift
+        private const Byte VK_LWIN = 0x5B;     // Left Windows key
         private const Byte VK_F1 = 0x70;
         private const Byte VK_F2 = 0x71;
+        private const Byte VK_UP = 0x26;       // Arrow Up
+        private const Byte VK_DOWN = 0x28;     // Arrow Down
 
         // Key codes for letters (A=0x41, etc.) and numbers (0=0x30, etc.)
         public const UInt16 KEY_A = 0x41;
@@ -50,6 +53,16 @@ namespace Loupedeck.CueBoardPlugin.Services
         public void SendAltF2()
         {
             this.SendModifiedKey(new Byte[] { VK_MENU }, VK_F2);
+        }
+
+        public void SendWinDown()
+        {
+            this.SendModifiedKey(new Byte[] { VK_LWIN }, VK_DOWN);
+        }
+
+        public void SendWinUp()
+        {
+            this.SendModifiedKey(new Byte[] { VK_LWIN }, VK_UP);
         }
 
         private void SendModifiedKey(Byte[] modifiers, Byte key)
@@ -108,6 +121,9 @@ namespace Loupedeck.CueBoardPlugin.Services
             if (vk >= 0x30 && vk <= 0x39) return ((Char)vk).ToString();
             if (vk == VK_F1) return "F1";
             if (vk == VK_F2) return "F2";
+            if (vk == VK_LWIN) return "Win";
+            if (vk == VK_UP) return "Up";
+            if (vk == VK_DOWN) return "Down";
             return $"0x{vk:X2}";
         }
 
