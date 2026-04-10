@@ -7,6 +7,8 @@ namespace Loupedeck.CueBoardPlugin.Actions
     {
         private CueBoardPlugin _cueBoard;
         private Boolean _subscribedToRefresh = false;
+        private Boolean _subscribedToTimerTick = false;
+        private Boolean _wantsTimerTick = false;
 
         protected CueBoardPlugin CueBoard
         {
@@ -20,6 +22,12 @@ namespace Loupedeck.CueBoardPlugin.Actions
                         this._cueBoard.RefreshAllImages += () => this.ActionImageChanged();
                         this._subscribedToRefresh = true;
                     }
+                    // Wire timer tick if requested
+                    if (this._cueBoard != null && this._wantsTimerTick && !this._subscribedToTimerTick)
+                    {
+                        this._cueBoard.TimerDisplayChanged += () => this.ActionImageChanged();
+                        this._subscribedToTimerTick = true;
+                    }
                 }
                 return this._cueBoard;
             }
@@ -31,6 +39,15 @@ namespace Loupedeck.CueBoardPlugin.Actions
         protected CueBoardCommand(String displayName, String description, String groupName)
             : base(displayName, description, groupName)
         {
+        }
+
+        /// <summary>
+        /// Call in constructor of commands that need per-second timer updates.
+        /// Prevents the refresh storm of updating all 32 buttons every tick.
+        /// </summary>
+        protected void EnableTimerTickUpdates()
+        {
+            this._wantsTimerTick = true;
         }
 
         protected BitmapImage DrawButton(PluginImageSize imageSize, String text, BitmapColor bgColor)

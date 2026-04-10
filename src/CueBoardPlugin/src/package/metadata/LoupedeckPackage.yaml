@@ -20,7 +20,8 @@ pluginFolderWin: bin
 supportedDevices:
     - LoupedeckCtFamily
 
-#pluginCapabilities:
+pluginCapabilities:
+    - Encoder
 
 minimumLoupedeckVersion: 6.0
 

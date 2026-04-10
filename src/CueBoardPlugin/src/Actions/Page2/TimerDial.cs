@@ -7,6 +7,7 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page2
         public TimerDial()
             : base("Timer Duration", "Rotate to adjust timer, press to start/pause", "Operator Mode", hasReset: true)
         {
+            this.EnableTimerTickUpdates();
         }
 
         protected override void ApplyAdjustment(String actionParameter, Int32 diff)

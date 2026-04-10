@@ -16,19 +16,26 @@ namespace Loupedeck.CueBoardPlugin
         public ExportService Export { get; private set; }
         public TimerOverlayService TimerOverlay { get; private set; }
 
-        // Event for commands to subscribe to for global refresh
+        // Event for timer-related actions only (fires every second during countdown)
+        public event Action TimerDisplayChanged;
+
+        // Event for all buttons (fires on meaningful state changes only)
         public event Action RefreshAllImages;
 
+        public void NotifyTimerDisplayChanged() => this.TimerDisplayChanged?.Invoke();
         public void NotifyRefreshAllImages() => this.RefreshAllImages?.Invoke();
 
         public CueBoardPlugin()
         {
             PluginLog.Init(this.Log);
             PluginResources.Init(this.Assembly);
+            PluginLog.Info("CueBoard plugin constructed");
         }
 
         public override void Load()
         {
+            PluginLog.Info("CueBoard plugin Load() starting...");
+
             this.Keyboard = new KeyboardService();
             this.ZoomDetection = new ZoomDetectionService();
             this.State = new SessionState();
@@ -37,12 +44,13 @@ namespace Loupedeck.CueBoardPlugin
             this.Export = new ExportService();
             this.TimerOverlay = new TimerOverlayService();
 
-            // Refresh all button images every second when timer is running
+            // Only refresh timer-related buttons each second (not all 32+)
             this.Timer.TimerTick += (remaining) =>
             {
-                this.NotifyRefreshAllImages();
+                this.NotifyTimerDisplayChanged();
             };
 
+            // On timer expiry, refresh everything (state changed meaningfully)
             this.Timer.TimerExpired += () =>
             {
                 this.NotifyRefreshAllImages();
@@ -58,11 +66,12 @@ namespace Loupedeck.CueBoardPlugin
                 }
             };
 
-            PluginLog.Info("CueBoard plugin loaded successfully");
+            PluginLog.Info("CueBoard plugin loaded successfully — all services initialized");
         }
 
         public override void Unload()
         {
+            PluginLog.Info("CueBoard plugin Unload() called — shutting down");
             this.Timer?.Dispose();
             PluginLog.Info("CueBoard plugin unloaded");
         }

@@ -7,6 +7,8 @@ namespace Loupedeck.CueBoardPlugin.Actions
     {
         private CueBoardPlugin _cueBoard;
         private Boolean _subscribedToRefresh = false;
+        private Boolean _subscribedToTimerTick = false;
+        private Boolean _wantsTimerTick = false;
 
         protected CueBoardPlugin CueBoard
         {
@@ -19,6 +21,12 @@ namespace Loupedeck.CueBoardPlugin.Actions
                     {
                         this._cueBoard.RefreshAllImages += () => this.AdjustmentValueChanged();
                         this._subscribedToRefresh = true;
+                        PluginLog.Info($"[CueBoardAdjustment] {this.GetType().Name} registered — subscribed to RefreshAllImages");
+                    }
+                    if (this._cueBoard != null && this._wantsTimerTick && !this._subscribedToTimerTick)
+                    {
+                        this._cueBoard.TimerDisplayChanged += () => this.AdjustmentValueChanged();
+                        this._subscribedToTimerTick = true;
                     }
                 }
                 return this._cueBoard;
@@ -31,6 +39,15 @@ namespace Loupedeck.CueBoardPlugin.Actions
         protected CueBoardAdjustment(String displayName, String description, String groupName, Boolean hasReset)
             : base(displayName, description, groupName, hasReset)
         {
+            PluginLog.Info($"[CueBoardAdjustment] Constructing: {displayName} (group: {groupName}, hasReset: {hasReset})");
+        }
+
+        /// <summary>
+        /// Call in constructor of dials that need per-second timer updates.
+        /// </summary>
+        protected void EnableTimerTickUpdates()
+        {
+            this._wantsTimerTick = true;
         }
     }
 }

@@ -7,6 +7,7 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page2
         public StartTimerCommand()
             : base("Timer", "Start/pause countdown timer", "Operator Mode")
         {
+            this.EnableTimerTickUpdates();
         }
 
         protected override void RunCommand(String actionParameter)

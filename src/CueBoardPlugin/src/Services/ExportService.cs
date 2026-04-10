@@ -30,10 +30,24 @@ namespace Loupedeck.CueBoardPlugin.Services
             try
             {
                 Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true });
+                PluginLog.Info($"Opened export in default browser");
             }
             catch (Exception ex)
             {
-                PluginLog.Warning($"Could not open export: {ex.Message}");
+                PluginLog.Warning($"UseShellExecute failed: {ex.Message} — trying cmd fallback");
+                try
+                {
+                    Process.Start(new ProcessStartInfo("cmd.exe", $"/c start \"\" \"{filePath}\"")
+                    {
+                        CreateNoWindow = true,
+                        UseShellExecute = false
+                    });
+                    PluginLog.Info($"Opened export via cmd fallback");
+                }
+                catch (Exception ex2)
+                {
+                    PluginLog.Warning($"cmd fallback also failed: {ex2.Message} — file saved at {filePath}");
+                }
             }
 
             return filePath;
