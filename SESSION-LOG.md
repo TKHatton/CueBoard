@@ -1,5 +1,64 @@
 # CueBoard Session Log
 
+## Session 4 — April 10, 2026 (Afternoon — Day 1 Critical Fixes)
+
+### Context
+- Hackathon deadline: April 22 (12 days out). Top 6 selected, winners go to Switzerland.
+- Tyler currently in top 50 of 1,300 entries. Next round selects top 12.
+- Tyler reported 4 problems: plugin deactivation in Zoom Workspace, dial not responding,
+  reports/preview not working, button flickering.
+- 5-day code-complete plan created and approved.
+
+### What Got Fixed
+- **DELETED CueBoardApplication.cs** — This was the root cause of plugin turning off.
+  The file returned "Zoom" from GetProcessName(), telling the SDK to tie plugin activation
+  to the Zoom process. Combined with HasNoApplication=true in the plugin class, this
+  created a contradiction. When Zoom Workspace changed window focus, the SDK deactivated
+  the plugin. Removing this file means the plugin is always active regardless of which
+  app has focus.
+
+- **Fixed button flickering (refresh storm)** — TimerTick was calling NotifyRefreshAllImages()
+  every second, updating ALL 32 buttons + 3 dials. Now there are two separate events:
+  - TimerDisplayChanged: fires every second, only StartTimerCommand and TimerDial subscribe
+  - RefreshAllImages: fires on meaningful state changes (timer expired, etc.)
+  New EnableTimerTickUpdates() method in base classes for opt-in per-second updates.
+
+- **Enabled encoder in manifest** — pluginCapabilities was commented out in
+  LoupedeckPackage.yaml. Added `pluginCapabilities: Encoder` to declare dial support.
+  This may fix the dial not responding.
+
+- **Added diagnostic logging** — CueBoardAdjustment logs its construction (name, group,
+  hasReset) so we can confirm the SDK discovers all 3 dial handlers. Plugin logs
+  Load/Unload lifecycle with timestamps.
+
+- **Fixed ExportService** — Process.Start with UseShellExecute can fail silently from
+  the Logi Plugin Service context. Added cmd.exe /c start fallback with explicit error
+  logging so the HTML file always opens (or at minimum, the file path is logged).
+
+### Build Status
+- 0 warnings, 0 errors
+- Auto-deployed via .link file
+- Plugin reload command sent to Logi Plugin Service
+- Committed and pushed to main on GitHub
+
+### What Tyler Needs to Test
+1. Does plugin stay active when switching between Zoom Workspace tabs and other apps?
+2. In Logi Options+ dialpad settings, do CueBoard dial actions (Reaction Selector,
+   Timer Duration, Flag Type) appear in the assignment dropdown for the big dial?
+3. If they appear, assign one and test rotation.
+4. Press Flag Moment a few times, then press Export. Does the HTML report open in browser?
+5. Start a timer. Does the timer button update its countdown without all other buttons flickering?
+
+### Next Session Priorities (Day 2)
+1. Build PreviewOverlayService — PowerShell WinForms dark-theme window showing flag summary
+2. Wire PreviewSummaryCommand to toggle the overlay on/off
+3. Implement AddNoteCommand with PowerShell input dialog
+4. Implement AssignCommand with preset names dialog
+5. Fill Page 3 empty slots: "New Meeting" (reset) + "Share to Chat" (clipboard)
+6. Iterate on dial fix based on Tyler's Day 1 test results
+
+---
+
 ## Session 3 — March 23, 2026 (Evening — Continued Testing & Refinement)
 
 ### What Got Fixed / Added
