@@ -26,6 +26,7 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page1
 
             var newIndex = this.State.SelectedReactionIndex + (diff > 0 ? 1 : -1);
             this.State.SelectedReactionIndex = Math.Clamp(newIndex, 0, ReactionNames.Length - 1);
+            this.CueBoard?.Toast?.ShowToast("\uD83D\uDE00", $"Reaction: {ReactionNames[this.State.SelectedReactionIndex]}", 1500);
             this.AdjustmentValueChanged();
 
             // Also update the reaction button image

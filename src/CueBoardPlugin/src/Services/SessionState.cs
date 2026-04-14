@@ -1,6 +1,7 @@
 namespace Loupedeck.CueBoardPlugin.Services
 {
     using System;
+    using System.Collections.Generic;
     using Loupedeck.CueBoardPlugin.Models;
 
     public class SessionState
@@ -22,6 +23,26 @@ namespace Loupedeck.CueBoardPlugin.Services
         public Int32 SelectedReactionIndex { get; set; } = 0;
         public FlagType SelectedFlagType { get; set; } = FlagType.ActionItem;
 
+        // Page 3 dial mode (Assign hijacks the dial temporarily)
+        public Boolean IsAssignMode { get; set; } = false;
+        public Int32 SelectedParticipantIndex { get; set; } = 0;
+
+        // Dynamic participant list — starts with defaults, users can add more
+        // The "+" option is always appended by AssignCommand, not stored here
+        private readonly List<String> _participants = new List<String>
+            { "Sarah", "Mike", "Jordan", "Dev Team", "Marketing", "Ops" };
+
+        public IReadOnlyList<String> Participants => this._participants.AsReadOnly();
+
+        public void AddParticipant(String name)
+        {
+            if (!String.IsNullOrWhiteSpace(name) && !this._participants.Contains(name))
+            {
+                this._participants.Add(name);
+                PluginLog.Info($"Participant added: {name}");
+            }
+        }
+
         // Meeting tracking
         public DateTime MeetingStartTime { get; set; } = DateTime.Now;
 
@@ -42,6 +63,8 @@ namespace Loupedeck.CueBoardPlugin.Services
             this.SpotlightOn = false;
             this.SelectedReactionIndex = 0;
             this.SelectedFlagType = FlagType.ActionItem;
+            this.IsAssignMode = false;
+            this.SelectedParticipantIndex = 0;
             this.MeetingStartTime = DateTime.Now;
             this.NotifyStateChanged();
         }

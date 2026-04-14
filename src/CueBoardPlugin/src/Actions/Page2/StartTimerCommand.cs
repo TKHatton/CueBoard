@@ -59,8 +59,8 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page2
                 return this.DrawButton(imageSize, $"❚❚ {remaining}", new BitmapColor(120, 80, 30));
             }
 
-            // Idle — show duration that will start
-            return this.DrawButton(imageSize, $"▶ {timer.DurationMinutes}:00", new BitmapColor(80, 80, 80));
+            // Idle — show clock icon
+            return this.DrawIcon(imageSize, "timer.png");
         }
     }
 }

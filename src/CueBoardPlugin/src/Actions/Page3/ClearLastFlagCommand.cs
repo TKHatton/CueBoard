@@ -14,6 +14,7 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page3
             var removed = this.CueBoard?.Flags?.RemoveLastFlag();
             if (removed != null)
             {
+                this.CueBoard?.Toast?.FlagCleared(removed.Type.ToString());
                 PluginLog.Info($"Removed flag: {removed.Type}");
             }
 

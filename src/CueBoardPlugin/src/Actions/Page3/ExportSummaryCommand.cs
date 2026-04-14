@@ -1,6 +1,7 @@
 namespace Loupedeck.CueBoardPlugin.Actions.Page3
 {
     using System;
+    using Loupedeck.CueBoardPlugin.Services;
 
     public class ExportSummaryCommand : CueBoardCommand
     {
@@ -21,7 +22,20 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page3
                 return;
             }
 
-            var path = export.ExportToFile(flags.GetFlags(), state.MeetingStartTime);
+            // Try to auto-detect a transcript file
+            var transcript = this.CueBoard?.Transcript;
+            if (transcript != null && !transcript.HasTranscript)
+            {
+                var vttPath = TranscriptService.AutoDetectVttFile();
+                if (vttPath != null)
+                {
+                    transcript.LoadVtt(vttPath);
+                    PluginLog.Info($"Auto-detected transcript: {vttPath}");
+                }
+            }
+
+            var path = export.ExportToFile(flags.GetFlags(), state.MeetingStartTime, transcript);
+            this.CueBoard?.Toast?.Exported(path);
             PluginLog.Info($"Exported to: {path}");
 
             this._justExported = true;

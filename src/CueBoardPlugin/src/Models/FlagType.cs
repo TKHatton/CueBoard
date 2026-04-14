@@ -5,6 +5,7 @@ namespace Loupedeck.CueBoardPlugin.Models
         ActionItem,
         Decision,
         FollowUp,
-        Bookmark
+        Bookmark,
+        Highlight
     }
 }

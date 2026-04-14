@@ -18,18 +18,24 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page3
             }
 
             flags.AddFlag(this.State.SelectedFlagType, DateTime.Now);
+            this.CueBoard?.Toast?.FlagAdded(this.GetShortTypeName());
             this.ActionImageChanged();
         }
 
         protected override BitmapImage GetCommandImage(String actionParameter, PluginImageSize imageSize)
         {
             var count = this.CueBoard?.Flags?.FlagCount ?? 0;
-            var typeName = this.GetShortTypeName();
 
-            var builder = new BitmapBuilder(imageSize);
-            builder.Clear(new BitmapColor(139, 92, 246));
-            builder.DrawText($"FLAG\n{typeName}\n({count})");
-            return builder.ToImage();
+            if (count > 0)
+            {
+                // Show count when flags exist
+                var builder = new BitmapBuilder(imageSize);
+                builder.Clear(new BitmapColor(139, 92, 246));
+                builder.DrawText($"FLAG\n({count})", BitmapColor.White);
+                return builder.ToImage();
+            }
+
+            return this.DrawIcon(imageSize, "flag.png");
         }
 
         private String GetShortTypeName()

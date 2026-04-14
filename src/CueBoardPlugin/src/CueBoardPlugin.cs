@@ -15,6 +15,9 @@ namespace Loupedeck.CueBoardPlugin
         public TimerService Timer { get; private set; }
         public ExportService Export { get; private set; }
         public TimerOverlayService TimerOverlay { get; private set; }
+        public InputDialogService InputDialog { get; private set; }
+        public ToastService Toast { get; private set; }
+        public TranscriptService Transcript { get; private set; }
 
         // Event for timer-related actions only (fires every second during countdown)
         public event Action TimerDisplayChanged;
@@ -43,6 +46,9 @@ namespace Loupedeck.CueBoardPlugin
             this.Timer = new TimerService();
             this.Export = new ExportService();
             this.TimerOverlay = new TimerOverlayService();
+            this.InputDialog = new InputDialogService();
+            this.Toast = new ToastService();
+            this.Transcript = new TranscriptService();
 
             // Only refresh timer-related buttons each second (not all 32+)
             this.Timer.TimerTick += (remaining) =>

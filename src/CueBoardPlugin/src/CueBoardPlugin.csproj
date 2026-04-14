@@ -70,6 +70,8 @@
     <EmbeddedResource Include="Resources\Icons\preview.png" />
     <EmbeddedResource Include="Resources\Icons\export.png" />
     <EmbeddedResource Include="Resources\Icons\export-done.png" />
+    <EmbeddedResource Include="Resources\Icons\poll.png" />
+    <EmbeddedResource Include="Resources\Icons\participants.png" />
   </ItemGroup>
 
 
