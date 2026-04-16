@@ -11,6 +11,18 @@
 - [ ] Zoom open (or simulation mode active)
 - [ ] Console showing Page 1 (Live Controls)
 - [ ] Export folder empty (so the export feels fresh)
+- [ ] **Zoom closed captions ENABLED in Zoom settings**
+      (Zoom > Settings > Accessibility > Always show captions).
+      Without this, the Captions button on Page 2 will appear to do
+      nothing when pressed, because Alt+F2 only works if captions are
+      available in the account.
+- [ ] Zoom keyboard shortcuts enabled globally
+      (Zoom > Settings > Keyboard Shortcuts > "Enable Global Shortcut"
+      on the ones you'll demo, at minimum Alt+A, Alt+V, Alt+R, Alt+S,
+      Alt+M, Alt+F2, Alt+B, Alt+U). Without "global", shortcuts only
+      fire when Zoom is the focused window.
+- [ ] Dial batteries fresh (known intermittent issue)
+- [ ] Second monitor (or screen-share target) ready if demoing share
 
 ---
 
