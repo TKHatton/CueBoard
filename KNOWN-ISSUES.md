@@ -57,15 +57,18 @@
 - **Captions (Page 2)** wasn't sending Alt+F2 — only flipping internal state.
   Fixed in `Actions/Page2/CaptionsCommand.cs` so the keystroke actually fires.
 
+### Fixed 2026-04-19 (Page 2 Rebuild)
+- **LockMeetingCommand** now uses Alt+L (real Zoom shortcut) instead of simulated
+- **CaptionsCommand** was sending wrong shortcut (Alt+F2 is Gallery View, not Captions) —
+  replaced with FullscreenCommand (Alt+F)
+- **TimerDial resume-from-paused** now correctly resumes with remaining seconds
+- **Removed SIMULATED buttons**: Spotlight, Remove Participant, Host Transfer, Breakout Rooms
+  (no Zoom shortcuts exist for these)
+- **Added new working commands**: FullscreenCommand (Alt+F), PauseShareCommand (Alt+T)
+- **Admit vs Participants duplicate resolved** — kept Admit (with toast), removed Participants
+
 ### Open / Suspected
-- **Admit and Participants are duplicates** — both send Alt+U (open the
-  participants panel). Functional, just redundant. Consider repurposing
-  Admit, or accept it as "this is how you admit people from waiting room
-  in real Zoom anyway" since Zoom has no dedicated admit shortcut.
-- **TimerDial press from paused state** restarts as if fresh duration
-  rather than resuming remaining seconds (StartTimerCommand handles this
-  correctly — TimerDial does not). Low priority since most people will
-  press the Timer button, not the dial.
+- None currently — Page 2 is fully functional
 
 ---
 
@@ -84,22 +87,17 @@
 
 ### Page 2 — Operator Mode (host required for most)
 - [ ] **Mute All** (Alt+M) — host only. Confirm participants get muted.
-- [ ] **Captions** (Alt+F2) — JUST FIXED. Captions must be enabled in
-      Zoom Settings > Accessibility first, otherwise nothing happens.
-- [ ] **Breakout Rooms** (Alt+B) — host only. Should open the breakout panel.
-- [ ] **Participants** (Alt+U) — opens/closes panel
-- [ ] **Admit** — same shortcut as Participants right now (duplicate).
-      In real Zoom you click Admit inside that panel.
+- [ ] **Lock Meeting** (Alt+L) — host only. Locks/unlocks meeting.
+- [ ] **Admit** (Alt+U) — opens participants panel. Shows toast reminder
+      to click Admit button for waiting room guests.
+- [ ] **Fullscreen** (Alt+F) — toggles Zoom fullscreen mode.
+- [ ] **Pause Share** (Alt+T) — pauses/resumes active screen share.
 - [ ] **Min/Max Window** — Win+Down / Win+Up. Test outside Zoom too.
 - [ ] **Timer button** — press starts countdown, floating overlay appears
       on screen, press again pauses, press again resumes.
 - [ ] **Timer dial** — rotate adjusts minutes (verify display), press
-      starts/pauses. Heads-up on resume-from-paused issue above.
+      starts/pauses. Resume-from-paused now uses remaining time correctly.
 - [ ] **Clear Timer** — resets to zero, overlay should close.
-- [ ] **Spotlight / Lock / Remove / Host Transfer** — these are
-      SIMULATED. They flip an icon but don't actually change Zoom.
-      Decide: leave as cosmetic, or remove from layout to avoid the
-      "I pressed it but nothing happened" question from a judge.
 
 ### Page 3 — Meeting Intelligence
 - [ ] Flag Moment + dial selects type — add a few of each
@@ -119,8 +117,7 @@
   Page 3 (flag types) — visible toast on each turn?
 - Does the timer overlay actually appear on the right monitor in your
   3-monitor setup, or does it land somewhere weird?
-- Are the SIMULATED Page 2 buttons confusing in a real demo? If yes,
-  prune them from the layout for the hackathon submission.
+- Do all Page 2 buttons now feel functional and responsive?
 
 ---
 

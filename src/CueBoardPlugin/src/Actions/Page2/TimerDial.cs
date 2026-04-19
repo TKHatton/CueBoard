@@ -31,14 +31,22 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page2
                 return;
             }
 
-            if (!timer.IsRunning)
+            if (timer.RemainingSeconds <= 0 && !timer.IsRunning && !timer.IsPaused)
             {
+                // Timer is idle or expired — start fresh
                 timer.Start();
                 this.CueBoard?.TimerOverlay?.ShowTimer(timer.DurationMinutes * 60);
             }
-            else
+            else if (timer.IsRunning)
             {
+                // Running → Pause
                 timer.Pause();
+            }
+            else if (timer.IsPaused)
+            {
+                // Paused → Resume with remaining time
+                timer.Start();
+                this.CueBoard?.TimerOverlay?.ShowTimer(timer.RemainingSeconds);
             }
 
             this.AdjustmentValueChanged();

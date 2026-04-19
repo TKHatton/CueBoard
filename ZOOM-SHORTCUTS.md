@@ -41,13 +41,18 @@
 | Action | Shortcut | Notes |
 |--------|----------|-------|
 | Mute All | Alt+M | Host only |
-| Toggle Closed Captions | Alt+F2 | May vary by Zoom version |
-| Spotlight Speaker | — | No shortcut — must simulate |
-| Lock/Unlock Meeting | — | No shortcut — must simulate |
-| Admit from Waiting Room | — | No shortcut — must simulate |
-| Remove Participant | — | No shortcut — must simulate |
-| Host Transfer | — | No shortcut — must simulate |
-| Breakout Rooms | — | No shortcut — must simulate |
+| Lock/Unlock Meeting | Alt+L | Host only |
+| Toggle Participants Panel | Alt+U | Also where Admit button appears |
+| Toggle Fullscreen | Alt+F | |
+| Pause/Resume Screen Share | Alt+T | Only works while sharing |
+| Switch to Speaker View | Alt+F1 | |
+| Switch to Gallery View | Alt+F2 | |
+| Spotlight Speaker | — | No shortcut — requires UI/API |
+| Admit from Waiting Room | — | No direct shortcut — use Alt+U then click |
+| Remove Participant | — | No shortcut — requires UI |
+| Host Transfer | — | No shortcut — requires UI |
+| Breakout Rooms | — | No shortcut — requires UI |
+| Toggle Captions | — | No shortcut — must click toolbar |
 
 ## Other Useful Shortcuts
 

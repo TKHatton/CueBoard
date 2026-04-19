@@ -45,24 +45,23 @@
 | # | Button | Action | Zoom Shortcut | Priority |
 |---|--------|--------|---------------|----------|
 | 1 | Mute All | Mute all participants | Alt+M | MUST |
-| 2 | Spotlight Speaker | Spotlight current speaker | — (simulated) | MUST |
-| 3 | Lock Meeting | Lock/unlock meeting | — (simulated) | MUST |
-| 4 | Admit from Waiting Room | Let people in from waiting room | — (simulated) | MUST |
-| 5 | Remove Participant | Remove disruptive participant (2-step confirm) | — (simulated) | NICE |
-| 6 | Host Transfer | Transfer host role to specific person | — (simulated) | NICE |
-| 7 | Toggle Captions | Turn on/off closed captions for all | Alt+F2 | NICE |
-| 8 | Start Timer | Start countdown timer (dial sets duration) | — (internal) | MUST |
-| 9 | Clear Timer | Reset timer to zero | — (internal) | MUST |
+| 2 | Lock Meeting | Lock/unlock meeting | Alt+L | MUST |
+| 3 | Admit | Open participants panel to admit waiting guests | Alt+U | MUST |
+| 4 | Fullscreen | Toggle Zoom fullscreen mode | Alt+F | MUST |
+| 5 | Pause Share | Pause/resume screen sharing | Alt+T | MUST |
+| 6 | Min/Max Window | Minimize or maximize Zoom window | Win+Down/Up | NICE |
+| 7 | Start Timer | Start countdown timer (dial sets duration) | — (internal) | MUST |
+| 8 | Clear Timer | Reset timer to zero | — (internal) | MUST |
 
 **Dial:**
 - Rotate → Adjust timer duration (minutes)
-- Press → Start/pause timer
-- When Remove Participant is active: Rotate cycles through participants, press confirms
+- Press → Start/pause timer (resumes from paused correctly)
 
 **Feedback:**
-- Timer: Shows countdown on console display
+- Timer: Shows countdown on button display + optional overlay
 - Lock Meeting: Shows "Locked" or "Open"
-- Admit: Shows count of people waiting
+- Fullscreen: Shows current state
+- Pause Share: Shows "PAUSE SHARE" or "RESUME SHARE"
 
 ---
 

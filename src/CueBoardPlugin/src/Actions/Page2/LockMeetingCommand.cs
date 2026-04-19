@@ -1,11 +1,12 @@
 namespace Loupedeck.CueBoardPlugin.Actions.Page2
 {
     using System;
+    using Loupedeck.CueBoardPlugin.Services;
 
     public class LockMeetingCommand : CueBoardCommand
     {
         public LockMeetingCommand()
-            : base("Lock Meeting", "Lock/unlock meeting (simulated)", "Operator Mode")
+            : base("Lock Meeting", "Lock or unlock the meeting (Alt+L)", "Operator Mode")
         {
         }
 
@@ -16,8 +17,11 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page2
                 return;
             }
 
+            // Alt+L toggles meeting lock in Zoom
+            this.Keyboard?.SendAltKey(KeyboardService.KEY_L);
+
             this.State.MeetingLocked = !this.State.MeetingLocked;
-            PluginLog.Info($"[SIMULATED] Meeting {(this.State.MeetingLocked ? "LOCKED" : "UNLOCKED")}");
+            PluginLog.Info($"Meeting {(this.State.MeetingLocked ? "LOCKED" : "UNLOCKED")} (Alt+L sent)");
             this.ActionImageChanged();
         }
 
