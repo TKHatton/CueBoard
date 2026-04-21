@@ -56,13 +56,15 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page3
 
             if (this._confirmPending)
             {
+                // Confirmation state - red background with warning
                 builder.Clear(new BitmapColor(231, 76, 60));
-                builder.DrawText("TAP TO\nRESET", BitmapColor.White);
+                builder.DrawText("⚠", BitmapColor.White, 48);
             }
             else
             {
+                // Default state - circular arrow (reset symbol)
                 builder.Clear(new BitmapColor(42, 42, 53));
-                builder.DrawText("RESET\nMTG", new BitmapColor(180, 180, 180));
+                builder.DrawText("↻", new BitmapColor(139, 92, 246), 48);
             }
 
             return builder.ToImage();

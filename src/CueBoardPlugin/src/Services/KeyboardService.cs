@@ -22,6 +22,7 @@ namespace Loupedeck.CueBoardPlugin.Services
         // Key codes for letters (A=0x41, etc.) and numbers (0=0x30, etc.)
         public const UInt16 KEY_A = 0x41;
         public const UInt16 KEY_B = 0x42;
+        public const UInt16 KEY_C = 0x43;
         public const UInt16 KEY_F = 0x46;
         public const UInt16 KEY_H = 0x48;
         public const UInt16 KEY_I = 0x49;

@@ -12,6 +12,8 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page2
         protected override void RunCommand(String actionParameter)
         {
             this.CueBoard?.Timer?.Reset();
+            this.CueBoard?.TimerOverlay?.HideTimer();
+            this.CueBoard?.Toast?.ShowToast("⏱️", "Timer cleared", 2000);
             this.CueBoard?.NotifyRefreshAllImages();
         }
 

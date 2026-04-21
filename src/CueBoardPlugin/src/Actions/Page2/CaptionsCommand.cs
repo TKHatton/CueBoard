@@ -1,11 +1,12 @@
 namespace Loupedeck.CueBoardPlugin.Actions.Page2
 {
     using System;
+    using Loupedeck.CueBoardPlugin.Services;
 
     public class CaptionsCommand : CueBoardCommand
     {
         public CaptionsCommand()
-            : base("Captions", "Toggle Zoom closed captions (Alt+F2)", "Operator Mode")
+            : base("Captions", "Toggle Zoom closed captions (Alt+C)", "Operator Mode")
         {
         }
 
@@ -16,11 +17,12 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page2
                 return;
             }
 
-            // Send the actual Zoom shortcut so captions really toggle in the meeting
-            this.Keyboard?.SendAltF2();
+            // Alt+C toggles captions in Zoom (confirmed shortcut)
+            this.Keyboard?.SendAltKey(KeyboardService.KEY_C);
 
             this.State.CaptionsOn = !this.State.CaptionsOn;
-            PluginLog.Info($"Captions toggled (Alt+F2): {(this.State.CaptionsOn ? "ON" : "OFF")}");
+            PluginLog.Info($"Captions toggled (Alt+C): {(this.State.CaptionsOn ? "ON" : "OFF")}");
+            this.CueBoard?.Toast?.ShowToast("💬", this.State.CaptionsOn ? "Captions ON" : "Captions OFF", 2000);
             this.ActionImageChanged();
         }
 

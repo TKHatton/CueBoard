@@ -51,7 +51,7 @@
 | 5 | Pause Share | Pause/resume screen sharing | Alt+T | MUST |
 | 6 | Min/Max Window | Minimize or maximize Zoom window | Win+Down/Up | NICE |
 | 7 | Start Timer | Start countdown timer (dial sets duration) | — (internal) | MUST |
-| 8 | Clear Timer | Reset timer to zero | — (internal) | MUST |
+| 8 | Captions | Toggle Zoom closed captions (accessibility) | Alt+C | MUST |
 
 **Dial:**
 - Rotate → Adjust timer duration (minutes)

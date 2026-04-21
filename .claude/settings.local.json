@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir \"C:\\\\Users\\\\ltken\\\\OneDrive\\\\Documents\\\\GitHub\\\\CueBoard\\\\src\\\\CueBoardPlugin\\\\src\\\\Actions\\\\Page2\")",
+      "WebSearch",
+      "Bash(dotnet build:*)",
+      "Bash(grep:*)",
+      "Bash(taskkill:*)",
+      "Bash(Start-Process \"C:\\\\Program Files\\\\LogiOptionsPlus\\\\LogiOptionsUI.exe\" -ErrorAction SilentlyContinue)",
+      "Bash(powershell -Command:*)",
+      "Bash(dir \"C:\\\\Users\\\\ltken\\\\OneDrive\\\\Documents\\\\GitHub\\\\CueBoard\\\\src\\\\CueBoardPlugin\\\\src\\\\Resources\\\\Icons\")",
+      "Bash(dir:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push)",
+      "Bash(xargs basename:*)"
+    ]
+  }
+}

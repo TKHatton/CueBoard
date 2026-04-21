@@ -24,19 +24,18 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page2
 
         protected override BitmapImage GetCommandImage(String actionParameter, PluginImageSize imageSize)
         {
-            // Match the dark theme with purple accent
             var builder = new BitmapBuilder(imageSize);
-            builder.Clear(new BitmapColor(42, 42, 53)); // Dark background matching icons
+            builder.Clear(new BitmapColor(42, 42, 53));
 
             if (this._isFullscreen)
             {
-                // Exit fullscreen indicator
-                builder.DrawText("⊡", new BitmapColor(139, 92, 246), 36);
+                // Exit fullscreen - compress icon
+                builder.DrawText("⤓", new BitmapColor(180, 180, 180), 48);
             }
             else
             {
-                // Enter fullscreen indicator
-                builder.DrawText("⊞", new BitmapColor(139, 92, 246), 36);
+                // Enter fullscreen - expand icon
+                builder.DrawText("⤢", new BitmapColor(139, 92, 246), 48);
             }
 
             return builder.ToImage();
