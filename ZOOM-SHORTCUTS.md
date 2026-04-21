@@ -52,7 +52,7 @@
 | Remove Participant | — | No shortcut — requires UI |
 | Host Transfer | — | No shortcut — requires UI |
 | Breakout Rooms | — | No shortcut — requires UI |
-| Toggle Captions | — | No shortcut — must click toolbar |
+| Toggle Captions | Ctrl+C | Enables/disables closed captions |
 
 ## Other Useful Shortcuts
 

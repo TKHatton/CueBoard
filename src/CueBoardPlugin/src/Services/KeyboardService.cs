@@ -12,6 +12,7 @@ namespace Loupedeck.CueBoardPlugin.Services
 
         // Virtual key codes
         private const Byte VK_MENU = 0x12;     // Alt
+        private const Byte VK_CONTROL = 0x11;  // Ctrl
         private const Byte VK_SHIFT = 0x10;    // Shift
         private const Byte VK_LWIN = 0x5B;     // Left Windows key
         private const Byte VK_F1 = 0x70;
@@ -44,6 +45,11 @@ namespace Loupedeck.CueBoardPlugin.Services
         public void SendAltKey(UInt16 vkCode)
         {
             this.SendModifiedKey(new Byte[] { VK_MENU }, (Byte)vkCode);
+        }
+
+        public void SendCtrlKey(UInt16 vkCode)
+        {
+            this.SendModifiedKey(new Byte[] { VK_CONTROL }, (Byte)vkCode);
         }
 
         public void SendAltShiftKey(UInt16 vkCode)
@@ -122,6 +128,7 @@ namespace Loupedeck.CueBoardPlugin.Services
         private static String GetKeyName(Byte vk)
         {
             if (vk == VK_MENU) return "Alt";
+            if (vk == VK_CONTROL) return "Ctrl";
             if (vk == VK_SHIFT) return "Shift";
             if (vk >= 0x41 && vk <= 0x5A) return ((Char)vk).ToString();
             if (vk >= 0x30 && vk <= 0x39) return ((Char)vk).ToString();
