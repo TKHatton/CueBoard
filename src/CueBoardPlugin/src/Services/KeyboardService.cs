@@ -19,6 +19,8 @@ namespace Loupedeck.CueBoardPlugin.Services
         private const Byte VK_F2 = 0x71;
         private const Byte VK_UP = 0x26;       // Arrow Up
         private const Byte VK_DOWN = 0x28;     // Arrow Down
+        private const Byte VK_TAB = 0x09;      // Tab
+        private const Byte VK_RETURN = 0x0D;   // Enter
 
         // Key codes for letters (A=0x41, etc.) and numbers (0=0x30, etc.)
         public const UInt16 KEY_A = 0x41;
@@ -75,6 +77,16 @@ namespace Loupedeck.CueBoardPlugin.Services
         public void SendWinUp()
         {
             this.SendModifiedKey(new Byte[] { VK_LWIN }, VK_UP);
+        }
+
+        public void SendTab()
+        {
+            this.SendModifiedKey(new Byte[] { }, VK_TAB);
+        }
+
+        public void SendEnter()
+        {
+            this.SendModifiedKey(new Byte[] { }, VK_RETURN);
         }
 
         private void SendModifiedKey(Byte[] modifiers, Byte key)
@@ -137,6 +149,8 @@ namespace Loupedeck.CueBoardPlugin.Services
             if (vk == VK_LWIN) return "Win";
             if (vk == VK_UP) return "Up";
             if (vk == VK_DOWN) return "Down";
+            if (vk == VK_TAB) return "Tab";
+            if (vk == VK_RETURN) return "Enter";
             return $"0x{vk:X2}";
         }
 

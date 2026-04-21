@@ -46,12 +46,12 @@
 |---|--------|--------|---------------|----------|
 | 1 | Mute All | Mute all participants | Alt+M | MUST |
 | 2 | Lock Meeting | Lock/unlock meeting | Alt+L | MUST |
-| 3 | Admit | Open participants panel to admit waiting guests | Alt+U | MUST |
+| 3 | Admit All | Admit all from waiting room (keyboard automation) | Alt+U, Tab, Enter | MUST |
 | 4 | Fullscreen | Toggle Zoom fullscreen mode | Alt+F | MUST |
 | 5 | Pause Share | Pause/resume screen sharing | Alt+T | MUST |
 | 6 | Min/Max Window | Minimize or maximize Zoom window | Win+Down/Up | NICE |
 | 7 | Start Timer | Start countdown timer (dial sets duration) | — (internal) | MUST |
-| 8 | Captions | Toggle Zoom closed captions (accessibility) | Alt+C | MUST |
+| 8 | Copy Invite | Copy meeting invite link to clipboard | Alt+I | MUST |
 
 **Dial:**
 - Rotate → Adjust timer duration (minutes)

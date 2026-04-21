@@ -59,8 +59,6 @@
     <EmbeddedResource Include="Resources\Icons\admit.png" />
     <EmbeddedResource Include="Resources\Icons\remove.png" />
     <EmbeddedResource Include="Resources\Icons\host-transfer.png" />
-    <EmbeddedResource Include="Resources\Icons\captions-on.png" />
-    <EmbeddedResource Include="Resources\Icons\captions-off.png" />
     <EmbeddedResource Include="Resources\Icons\timer.png" />
     <EmbeddedResource Include="Resources\Icons\timer-clear.png" />
     <!-- Page 3: Meeting Intelligence -->

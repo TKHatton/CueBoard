@@ -15,7 +15,9 @@
       "Bash(git push)",
       "Bash(xargs basename:*)",
       "Bash(git push:*)",
-      "Bash(dotnet clean:*)"
+      "Bash(dotnet clean:*)",
+      "Bash(git rm:*)",
+      "Bash(findstr:*)"
     ]
   }
 }
