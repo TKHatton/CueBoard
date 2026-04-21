@@ -31,6 +31,7 @@ namespace Loupedeck.CueBoardPlugin.Services
         public const UInt16 KEY_I = 0x49;
         public const UInt16 KEY_L = 0x4C;
         public const UInt16 KEY_M = 0x4D;
+        public const UInt16 KEY_N = 0x4E;
         public const UInt16 KEY_Q = 0x51;
         public const UInt16 KEY_R = 0x52;
         public const UInt16 KEY_S = 0x53;

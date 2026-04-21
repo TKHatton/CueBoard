@@ -46,7 +46,7 @@
 |---|--------|--------|---------------|----------|
 | 1 | Mute All | Mute all participants | Alt+M | MUST |
 | 2 | Lock Meeting | Lock/unlock meeting | Alt+L | MUST |
-| 3 | Admit All | Admit all from waiting room (keyboard automation) | Alt+U, Tab, Enter | MUST |
+| 3 | Rename | Rename yourself in the meeting | Alt+N | MUST |
 | 4 | Fullscreen | Toggle Zoom fullscreen mode | Alt+F | MUST |
 | 5 | Pause Share | Pause/resume screen sharing | Alt+T | MUST |
 | 6 | Min/Max Window | Minimize or maximize Zoom window | Win+Down/Up | NICE |
