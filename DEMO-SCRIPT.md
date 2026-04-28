@@ -1,135 +1,149 @@
 # CueBoard — 3-Minute Demo Script
 
-> **Hard rule:** every action below has been verified working on Tyler's setup. Nothing aspirational, nothing flaky. If it's in this script, it works.
-> **Pre-demo checklist** at the bottom — run through it once before recording.
+> Punchy narration. Minimal button-juggling. You can record this solo, in one take, on Fathom.
+> Anything in *italics* is a stage direction (what to do/show). Plain text is what you say.
 
 ---
 
-## Cold open (0:00 – 0:15)
+## HOOK — 0:00 to 0:20
 
-**On screen:** Tyler holding the Logitech MX Creative Console, Zoom meeting visible.
+*Hold the device up to camera. Steady shot.*
 
-**Voiceover:**
-> "There are control surfaces for music, for streaming, for video editing. There has never been one for virtual meetings. Until now. This is CueBoard."
+> "Every day, millions of people fumble through Zoom menus to do simple things. There are control surfaces for music. For streaming. For video editing. There's never been one for virtual meetings."
+>
+> "This is CueBoard."
 
-*Lift the device toward camera. Hold for 1 beat.*
-
----
-
-## Act 1 — The basics, fast (0:15 – 0:50)
-
-**Goal:** Show that everyday Zoom controls become physical.
-
-Press in this order, one beat each, no hesitation:
-1. **Mute** — button shows MUTED
-2. **Mute** again — button shows LIVE
-3. **Camera** — off
-4. **Camera** — on
-5. **Raise Hand**
-6. **Reaction** — clap appears in Zoom
-
-**Voiceover under the actions:**
-> "Mute. Camera. Hand. React. The things you fumble for in toolbars are now muscle memory."
-
-*Beat. Don't linger.*
+*Lower the device. One beat.*
 
 ---
 
-## Act 2 — The host's tools (0:50 – 1:25)
+## ACT 1 — Live Controls — 0:20 to 0:55
 
-**Goal:** Show this isn't just a toy — hosts get real power.
+> "CueBoard puts the most common meeting controls at your fingertips. Mute. Camera. Screen share. Reactions. Hand. End meeting."
 
-Switch to **Page 2**.
+*While you say it, press 4-5 buttons in quick succession. The order doesn't matter — the audience just needs to see physical buttons doing real things.*
 
-1. **Mute All** — toast: "All Muted"
-2. **Pause Share** *(if you're sharing — otherwise skip)*
-3. **Minimize** — Zoom drops into floating thumbnail mode
-4. *(restore Zoom from taskbar)*
-5. **Copy Invite** — Zoom invite dialog appears, click Copy invite link
-6. **Timer** — countdown overlay appears top-center; numbers turn yellow under 25s
+- **Mute** (button face changes)
+- **Camera** (button face changes)
+- **Reaction** (clap fires in Zoom)
+- **Raise Hand** (hand goes up)
 
-**Voiceover:**
-> "If you run meetings, you get a control room. Mute everyone. Pause your share without scrambling. A timer everyone can see during screen share."
+> "Physical buttons. Muscle memory. No more hunting through toolbars mid-conversation."
 
 ---
 
-## Act 3 — The hero moment (1:25 – 2:25)
+## ACT 2 — Operator Mode — 0:55 to 1:20
 
-**Goal:** This is where CueBoard becomes the only product like it. Slow down here.
+> "But CueBoard isn't just for attendees. If you're running a meeting or a workshop, you need tools that go beyond mute and unmute."
 
-Switch to **Page 3**.
+*Switch to Page 2. Don't demo every button — just gesture to the keypad.*
 
-1. **Rotate the Flag Type dial** — toast cycles: Action Item → Decision → Follow-Up → Bookmark.
-   - *Voiceover:* "Now I'm in the meeting. Someone makes a decision."
-2. *(Land on Decision)*
-3. **Press Flag Moment** — **big BLUE flag overlay flashes top-right**
-4. **Rotate dial to Action Item.** Press Flag Moment. **Purple flag overlay.**
-5. **Press Add Note** — dark dialog appears, cursor already in field. Type "Sarah owns Q3 report by Friday." Press Enter.
-6. **Rotate dial to Follow-Up.** Press Flag Moment. **Green flag.**
-7. **Press Highlight.** **Gold flag.** *Beat.*
+- **Press Mute All** (toast: All muted)
+- **Press Timer** (countdown overlay appears top-center)
 
-**Voiceover during 4-7:**
-> "Every flag is timestamped. Every type has a color. Every moment is captured without typing during the conversation."
-
-8. **Press Export Summary.**
-
-A branded HTML page opens in browser. Show:
-- The stat boxes at top (counts by type)
-- Click a flag's purple timestamp pill — transcript panel slides open and highlights the actual moment from the live captions
-
-**Voiceover:**
-> "Every flag links back to the exact second of the transcript. The summary is shareable, printable, emailable — instantly."
-
-*Pause for 1 beat on the export page. Let it land.*
+> "Mute the room. Run a timer everyone can see during screen share. Pause your share. Minimize without losing the meeting. Page 2 is your control room."
 
 ---
 
-## Act 4 — The crowd (2:25 – 2:55)
+## ACT 3 — Meeting Intelligence (THE WOW) — 1:20 to 2:25
 
-**Goal:** Show that CueBoard isn't just for the host — it pulls the room in.
+> "AI tools record everything. CueBoard lets you decide what matters, in the moment, with a physical button — without breaking your flow."
 
-1. **Press Interactive Poll.** Browser opens to the live engage page. The share URL is already in your clipboard.
-2. **Switch to Zoom chat. Ctrl+V. Send.**
-3. *(Cut to phone or second screen showing an attendee opening the link, voting on a poll, adding a word to the cloud.)*
-4. *(Cut back to your screen — the live page updates with their vote.)*
+*Switch to Page 3.*
 
-**Voiceover:**
-> "One press. Engagement link in the chat. Anyone with the link can vote, leave a word in the cloud, rate the session. Everyone in the room. From any device."
+> "Watch this."
+
+*Slowly, deliberately:*
+
+1. *Rotate the dial.* Toast cycles: Action Item → Decision → Follow-Up.
+   > "The dial picks the type."
+2. *Land on Decision. Press Flag Moment.*
+   > "A decision happens. Flag it."
+   *Big BLUE flag flashes top-right.*
+3. *Rotate to Action Item. Press Flag Moment.*
+   *Big PURPLE flag.*
+4. *Press Add Note. Type fast: "Sarah owns Q3 by Friday." Enter.*
+   > "Add a note."
+5. *Press Highlight.*
+   *Big GOLD flag.*
+
+> "Every flag is timestamped. Every type has a color. Captured silently while the meeting keeps going."
+
+*Press Export Summary. Browser opens.*
+
+> "And just like that — a structured meeting summary. Action items. Decisions. Timestamped and organized. No AI hallucinations. No ten-page transcript. Just what *you* flagged as important."
+
+*Click any flag's timestamp pill. Transcript panel slides open and highlights the real moment.*
+
+> "Each flag links back to the exact second of the transcript."
+
+*One beat. Let the export page sit on screen.*
 
 ---
 
-## Close (2:55 – 3:00)
+## ACT 4 — The room joins — 2:25 to 2:50
 
-**On screen:** Hold the device. Steady shot.
+*Switch back to Zoom. Press Interactive Poll on CueBoard.*
 
-**Voiceover:**
-> "CueBoard. The first physical control surface purpose-built for virtual meetings."
+> "And one more thing — engagement isn't a separate tool. It's a button."
 
-*Logitech logo + CueBoard wordmark. End.*
+*Browser opens to the engage page. Switch to Zoom chat. Ctrl+V. Send.*
+
+> "One press. Share link in the chat. Anyone with the link — on any device — can vote, leave a word, rate the session. Real-time, in the room."
+
+*If Steve (or any attendee on phone) is in the call, ask them to open the link. Show their vote landing on YOUR screen.*
 
 ---
 
-## Pre-demo checklist (run before each take)
+## CLOSE — 2:50 to 3:00
 
-**Before opening Zoom:**
-- [ ] Logi Options+ is open and CueBoard plugin shows no caution symbols
-- [ ] Dialpad batteries fresh (test the Show Actions Ring button)
-- [ ] Timer set to default (~5 min) — no need to rotate dial during demo
+*Pick up the device. Steady.*
 
-**In Zoom Workplace, before joining the demo meeting:**
-- [ ] Open the Transcript panel (top-right toolbar) so a `.txt` is saved on click
-- [ ] Disable other shortcut-stealing apps (close Slack, Discord, Teams)
-- [ ] Set Zoom window as the focused window before pressing Page 2 buttons
-- [ ] Have a second device (phone) ready to receive the engage URL
+> "CueBoard turns the Logitech MX Creative Console into something every meeting host has been waiting for. Three pages. Physical controls. Real-time intelligence."
+>
+> "This is what a meeting control surface should look like."
 
-**Engage page (do once before recording day):**
-- [ ] Open `https://tkhatton.github.io/CueBoard/engage.html` directly in your browser
-- [ ] Fill in: word cloud prompt, 2-3 poll questions, rating prompt, feedback email
-- [ ] Click **Generate & Copy Share Link** — this saves the config to localStorage
-- [ ] During the demo, **Interactive Poll** auto-reads localStorage and copies the share URL
+*Hold. Logo. End.*
 
-**Right before pressing record:**
-- [ ] At end of meeting, click **Save transcript** in Zoom's Transcript panel — file lands in `OneDrive\Documents\Zoom\[date]\meeting_saved_closed_caption.txt`
-- [ ] If the demo doesn't include a real meeting first, press **Load Transcript** on CueBoard and pick a saved `.txt` from a previous meeting so flag-link demo works
+---
 
-**Failsafe:** if a flag overlay doesn't fire mid-take, keep going — a missed overlay is recoverable. The export at the end is the moment that has to land.
+## What you actually need to do live (the short version)
+
+This is the cheat-sheet for one-take recording:
+
+1. **Hook** — talk to camera holding device. ~20 sec.
+2. **Page 1** — press 4 buttons while narrating. ~35 sec.
+3. **Page 2** — press 2 buttons while narrating. ~25 sec.
+4. **Page 3** — dial + 4 button presses + Add Note typing + Export click. **This is the slowest section. Take your time.** ~65 sec.
+5. **Engage** — press Interactive Poll, paste link in Zoom chat. ~25 sec.
+6. **Close** — talk to camera. ~10 sec.
+
+**Total live action ~10 button presses + 1 dial rotation + 1 typed note + 1 paste.**
+
+---
+
+## Recording strategy (you, alone, tonight)
+
+**Recommended setup with Fathom:**
+
+1. Start a Zoom meeting with just yourself (or yourself + Steve so you have someone to receive the engage link).
+2. **Pin yourself** in the meeting so your face is the main video.
+3. Angle your laptop **down slightly** so the webcam captures your face *and* the device on the desk in front of you.
+4. **Test the framing once:** open photo booth/camera app, see if both your face and the device are visible. Adjust until yes.
+5. Start Fathom recording.
+6. Run through the script. Press buttons as you talk.
+7. When you hit Export Summary or Interactive Poll, **share your screen** in Zoom — Fathom records the screen share.
+8. End meeting. Fathom hands you the recording.
+9. Trim the start/end in Fathom or any free editor (Clipchamp on Windows is fine).
+
+**You don't need a second camera.** The laptop webcam pointed at the desk shows both you and the device. The Zoom screen share covers everything else.
+
+**You don't need a second person on the call** unless you want a real attendee for the engage demo — Steve being there 30 seconds is enough.
+
+---
+
+## Engage URL persistence — important
+
+The share URL is generated from your browser's `localStorage`. **As long as you use the same browser on the same machine, it persists indefinitely.** Setting it up days in advance and using it later is fine — just don't clear cookies.
+
+**Insurance:** after you click Generate & Copy Share Link, also paste the URL into a Notes app or bookmark it. If anything goes wrong with localStorage, you have the link saved.

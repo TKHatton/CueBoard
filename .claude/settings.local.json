@@ -17,7 +17,11 @@
       "Bash(git push:*)",
       "Bash(dotnet clean:*)",
       "Bash(git rm:*)",
-      "Bash(findstr:*)"
+      "Bash(findstr:*)",
+      "Bash(tasklist)",
+      "Bash(curl -s -o /dev/null -w \"engage.html: %{http_code}\\\\n\" https://tkhatton.github.io/CueBoard/engage.html)",
+      "Bash(curl -s -o /dev/null -w \"root: %{http_code}\\\\n\" https://tkhatton.github.io/CueBoard/)",
+      "Bash(awk 'NR<57 || /^    \\\\}$/ && p {print; p=0; next} NR<57 {print} /^    \\\\}$/ {p=1}' src/CueBoardPlugin/src/Actions/Page3/EngageSetupCommand.cs)"
     ]
   }
 }
