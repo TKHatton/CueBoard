@@ -32,6 +32,7 @@ namespace Loupedeck.CueBoardPlugin.Services
         public const UInt16 KEY_L = 0x4C;
         public const UInt16 KEY_M = 0x4D;
         public const UInt16 KEY_N = 0x4E;
+        public const UInt16 KEY_P = 0x50;
         public const UInt16 KEY_Q = 0x51;
         public const UInt16 KEY_R = 0x52;
         public const UInt16 KEY_S = 0x53;
@@ -39,6 +40,9 @@ namespace Loupedeck.CueBoardPlugin.Services
         public const UInt16 KEY_V = 0x56;
         public const UInt16 KEY_U = 0x55;
         public const UInt16 KEY_Y = 0x59;
+        public const UInt16 KEY_1 = 0x31;
+        public const UInt16 KEY_2 = 0x32;
+        public const UInt16 KEY_3 = 0x33;
         public const UInt16 KEY_4 = 0x34;
         public const UInt16 KEY_5 = 0x35;
         public const UInt16 KEY_6 = 0x36;
@@ -58,6 +62,11 @@ namespace Loupedeck.CueBoardPlugin.Services
         public void SendAltShiftKey(UInt16 vkCode)
         {
             this.SendModifiedKey(new Byte[] { VK_MENU, VK_SHIFT }, (Byte)vkCode);
+        }
+
+        public void SendCtrlShiftKey(UInt16 vkCode)
+        {
+            this.SendModifiedKey(new Byte[] { VK_CONTROL, VK_SHIFT }, (Byte)vkCode);
         }
 
         public void SendAltF1()
@@ -88,6 +97,11 @@ namespace Loupedeck.CueBoardPlugin.Services
         public void SendEnter()
         {
             this.SendModifiedKey(new Byte[] { }, VK_RETURN);
+        }
+
+        public void SendKey(UInt16 vkCode)
+        {
+            this.SendModifiedKey(new Byte[] { }, (Byte)vkCode);
         }
 
         private void SendModifiedKey(Byte[] modifiers, Byte key)

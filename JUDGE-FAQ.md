@@ -39,25 +39,25 @@ It's like the difference between keyboard shortcuts for audio editing vs. a phys
 
 ## Q: "What's the dial do?"
 
-**A:** The dial is context-aware. It does different things on each page.
+**A:** The dial is context-aware. Page 3's dial is the star feature.
 
 **Page 1 (Live Controls):**
-- Rotate → Cycle through reactions (Clap, Thumbs Up, Heart, Laugh, Tada)
-- Press → Send the selected reaction
-- Toast notification shows which reaction is selected
+- Dial is present but cosmetic in this version
+- Demo uses the Reaction button directly (sends clap)
 
 **Page 2 (Operator Mode):**
-- Rotate → Adjust timer duration (1-60 minutes)
-- Press → Start/Pause/Resume timer
-- Button display shows duration while idle, countdown while running
+- Dial is present but cosmetic in this version
+- Timer uses default 5-minute duration; Start/Pause via Timer button
 
-**Page 3 (Meeting Intelligence):**
-- Rotate → Select flag type (Action Item, Decision, Follow-Up, Bookmark)
-- Press → Confirm flag
-- When in Assign mode: Rotate → Select participant, Press → Assign flag
+**Page 3 (Meeting Intelligence) — ⭐ The Showpiece:**
+- Rotate → Select flag type (Action Item / Decision / Follow-Up / Bookmark)
+- Press → Confirm selection
+- After selection, every "Flag Moment" press records that type
+- Toast notification shows current selection
+- Color-coded: Purple (Action Item), Blue (Decision), Green (Follow-Up), Yellow (Bookmark)
 
 **Why this matters:**
-The dial isn't tacked on — it's essential. Every page uses it meaningfully. Logitech's hosting this hackathon; showing deep integration with their hardware differentiator (the dial) demonstrates respect for the platform.
+Page 3's Flag Type dial is the key differentiator. It enables rapid categorization of meeting moments without leaving the hardware. The Action Ring also provides direct shortcuts for each flag color (Flag Decision, Flag Follow-Up, Action Item) for one-press access.
 
 ---
 
@@ -141,69 +141,27 @@ A floating window with large countdown text, color-changing as time runs out, co
 
 ---
 
-## Q: "What's Interactive Poll? Did you integrate with Zoom's API?"
+## Q: "What's Interactive Poll / Engage?"
 
-**A:** No API. CueBoard uses keyboard shortcuts to open Zoom's built-in polling feature.
+**A:** CueBoard has its own audience engagement tool — no Zoom API needed.
 
 **How it works:**
-1. Before the meeting, you pre-configure polls in Zoom's meeting scheduler (web interface).
-2. During the meeting, pressing the Interactive Poll button sends the keyboard shortcut to open the poll panel.
-3. You select a poll and launch it (or CueBoard can auto-launch the first poll if scripted).
-4. Participants vote using Zoom's standard polling interface.
+1. Press "Engage Setup" (Page 3, button 2) → Opens a hosted webpage where you configure word cloud prompts, poll questions, rating prompts, and feedback email.
+2. Click "Generate Share Link" → URL is copied to clipboard.
+3. Paste the link into Zoom chat → Attendees open it on their devices.
+4. Press "Interactive Poll" (Page 3, button 6) → Opens the live engage page, auto-copies share link to clipboard again.
+5. Everyone on the same link sees real-time results: word cloud builds live, poll votes update, ratings aggregate.
+
+**What's included:**
+- **Word Cloud:** Attendees type words, cloud grows in real-time
+- **Polls:** Yes/No, True/False, or multiple choice questions (multi-question queue with Next/Prev)
+- **Star Rating:** 1-5 stars with live average and distribution bars
+- **Feedback:** Name + message → opens attendee's email client with pre-filled draft to your configured email
 
 **Why this is valuable:**
-- **Speed:** Launch a poll without navigating Zoom's menus.
-- **Professionalism:** No fumbling through UI during a live demo or training session.
-- **Works with existing features:** You're not rebuilding polling — you're making it accessible.
-
-**Demo script suggestion:**
-> "I've pre-configured a poll asking which features you'd use most. Watch as I trigger it from the hardware. [Press button]. Zoom's poll launches instantly. This is especially useful for workshop leaders who run frequent audience engagement activities."
-
----
-
-## Q: "What's Assign? How does that work?"
-
-**A:** Assign attaches a flag to a person or department.
-
-**Workflow:**
-1. Flag a moment (e.g., "Action Item")
-2. Press Assign button
-3. Rotate dial → See participant names (Sarah, Mike, Jordan, Dev Team, Marketing, Ops)
-4. Rotate to "+" → Opens input dialog to add a new name
-5. Press dial → Assigns the last flag to the selected person
-
-**Where the names come from:**
-- **Default list:** Pre-configured team members/departments (defined in code)
-- **Dynamic additions:** Press "+" on the dial to add names on-the-fly via input dialog
-- **Could pull from Zoom participant list in v2** (not implemented for hackathon)
-
-**What it shows in the export:**
-Each flag displays:
-```
-🎯 Action Item  |  3:47 PM
-Assigned to: Sarah
-Note: Follow up on API design decisions
-```
-
-**Why this matters:**
-Flags without assignments are just notes. Flags with assignments are *action items*. CueBoard makes it fast to assign during the meeting (no typing, no breaking flow).
-
----
-
-## Q: "What's the Preview button do?"
-
-**A:** Preview updates the button's display to show flag stats.
-
-**Behavior:**
-- **Single press:** Button shows "VIEW (5)" where 5 = total flag count
-- **Double press (< 2 seconds):** Loads demo data (for testing without a real meeting)
-
-**Why this exists:**
-- Quick visual confirmation of how many flags you've created
-- Demo data loader helps with testing and stage demos (if live meeting fails)
-- Console-based feedback (you see stats on the hardware, not just in the export)
-
-**This is a status button, not an action button.** It doesn't open a window — it just updates its own display.
+- **No Zoom Pro required:** Zoom's built-in polls need a paid plan. CueBoard's Engage works for everyone.
+- **Visible results:** Everyone sees the same live-updating display.
+- **One-button access:** Hardware button copies the link and opens the page instantly.
 
 ---
 
@@ -311,8 +269,8 @@ Keyboard shortcuts don't show feedback. CueBoard buttons **display current state
 
 **Secondary:**
 - **Content creators** who live-stream meetings or workshops (Timer overlay is useful for time-boxed segments)
-- **Executive assistants** managing others' meetings (host power tools like Mute All, Lock Meeting)
-- **Training facilitators** running workshops (Interactive Poll, Timer, Meeting Intelligence)
+- **Executive assistants** managing others' meetings (host power tools like Mute All, Copy Invite)
+- **Training facilitators** running workshops (Engage polls, Timer, Meeting Intelligence)
 
 **Not for:**
 - Casual users who attend 1-2 meetings per week (not worth the hardware investment)
@@ -414,17 +372,15 @@ This is the big one:
 - **Not cloud-dependent:** Everything local, works offline, no privacy concerns
 
 **What works right now:**
-- All Page 1 buttons (Live Controls)
-- 6 of 7 Page 2 buttons (Operator Mode) — missing Min/Max Window
-- All 13 Page 3 commands (Meeting Intelligence)
-- Timer with floating overlay
-- Export with transcript integration
+- All 9 Page 1 buttons (Live Controls)
+- All 7 Page 2 buttons (Operator Mode)
+- All 9 Page 3 buttons (Meeting Intelligence)
+- Timer with floating overlay (color-coded countdown)
+- Export with transcript integration (HTML report with print/email/download)
+- Engage page for audience interaction (word cloud, polls, ratings, feedback)
 - Toast notifications for every action
-
-**What needs polish:**
-- Button icons (text-only currently)
-- Demo rehearsal
-- Live testing in a real Zoom call
+- Flag burst overlay (visible during screen share)
+- Action Ring with 8 quick-access slots
 
 **The pitch:**
 > "Virtual meetings are now a permanent part of work. We've optimized our keyboards, mice, monitors, and chairs. Why not optimize our *meeting interface*? CueBoard turns meetings from a necessary evil into a controlled, professional workflow."

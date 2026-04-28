@@ -196,7 +196,25 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:#8B5CF6}
   <div class='footer'>Powered by CueBoard</div>
 </div>
 
+<!-- Firebase Realtime Database -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
 <script>
+// ============ FIREBASE SETUP ============
+var firebaseConfig = {
+  apiKey: "AIzaSyDXqwKOPHYvF_8mHZZ2jJK7vQHf3K9ZqHo",
+  authDomain: "cueboard-engage.firebaseapp.com",
+  databaseURL: "https://cueboard-engage-default-rtdb.firebaseio.com",
+  projectId: "cueboard-engage",
+  storageBucket: "cueboard-engage.appspot.com",
+  messagingSenderId: "123456789",
+  appId: "1:123456789:web:abc123def456"
+};
+firebase.initializeApp(firebaseConfig);
+var db = firebase.database();
+var sessionRef = null;
+
 // ============ ROUTER: detect setup vs play mode from URL hash ============
 var currentConfig = null;
 function loadFromHash(){
@@ -226,6 +244,7 @@ function switchToPlayMode(config){
   document.getElementById('page-sub').textContent='Live · respond and see results in real time';
   applyConfigToPlay(config);
   initRate();
+  initFirebaseSession();
 }
 
 // ============ SETUP MODE ============
@@ -316,10 +335,43 @@ function applyConfigToPlay(config){
   else{document.getElementById('poll-q-display').textContent='(No poll questions configured)'}
 }
 
+// ============ FIREBASE SESSION ============
+function initFirebaseSession(){
+  var hash = window.location.hash;
+  if(!hash || hash.indexOf('#config=')!==0)return;
+  var sessionId = hash.substring(8).substring(0,16);
+  sessionRef = db.ref('sessions/'+sessionId);
+
+  sessionRef.child('cloud').on('value',function(snap){
+    var data = snap.val();
+    if(data){cloudWords=data;renderCloud()}
+  });
+
+  sessionRef.child('poll').on('value',function(snap){
+    var data = snap.val();
+    if(data && data.qIdx !== undefined){
+      if(data.qIdx !== pollQIdx){pollQIdx=data.qIdx;applyQueueQuestion();var n=document.getElementById('q-num');if(n)n.textContent=pollQIdx+1}
+      if(data.data){pollData=data.data;updatePollDisplay()}
+    }
+  });
+
+  sessionRef.child('rating').on('value',function(snap){
+    var data = snap.val();
+    if(data){rv=data;renderRate()}
+  });
+}
+
 // Word cloud
 var cloudWords={};
 var cc=['#8B5CF6','#3498DB','#2ECC71','#F59E0B','#E74C3C','#0D9488','#EC4899','#F97316','#06B6D4','#84CC16'];
-function addWord(){var i=document.getElementById('cloud-in'),w=i.value.trim().toLowerCase();if(!w)return;cloudWords[w]=(cloudWords[w]||0)+1;i.value='';renderCloud()}
+function addWord(){
+  var i=document.getElementById('cloud-in'),w=i.value.trim().toLowerCase();
+  if(!w)return;
+  cloudWords[w]=(cloudWords[w]||0)+1;
+  i.value='';
+  if(sessionRef){sessionRef.child('cloud').set(cloudWords)}
+  renderCloud();
+}
 function renderCloud(){
   var d=document.getElementById('cloud-display'),e=Object.entries(cloudWords).sort(function(a,b){return b[1]-a[1]});
   if(!e.length){d.innerHTML='<span class="cloud-empty">Add words to build the cloud</span>';return}
@@ -358,8 +410,24 @@ function renderMcOpts(opts){
     h+='<div class="poll-opt" onclick="voteMc(\''+o.replace(/\\/g,"\\\\").replace(/\'/g,"\\\'")+'\')" style="min-width:120px"><div class="poll-emoji" style="font-size:24px;color:'+pollColors[i%pollColors.length]+'">&#9679;</div><div class="poll-lbl">'+escapeHtml(o)+'</div><div class="poll-num" id="pv-mc-'+i+'">0</div></div>'});
   document.getElementById('poll-opts-container').innerHTML='<div class="poll-opts gap-16" style="flex-wrap:wrap">'+h+'</div>';
 }
-function voteKey(k){pollData[k]=(pollData[k]||0)+1;var el=document.getElementById('pv-'+k);if(el)el.textContent=pollData[k];renderBars()}
-function voteMc(o){pollData[o]=(pollData[o]||0)+1;var keys=Object.keys(pollData);var i=keys.indexOf(o);var el=document.getElementById('pv-mc-'+i);if(el)el.textContent=pollData[o];renderBars()}
+function voteKey(k){
+  pollData[k]=(pollData[k]||0)+1;
+  if(sessionRef){sessionRef.child('poll').set({qIdx:pollQIdx,data:pollData})}
+  updatePollDisplay();
+}
+function voteMc(o){
+  pollData[o]=(pollData[o]||0)+1;
+  if(sessionRef){sessionRef.child('poll').set({qIdx:pollQIdx,data:pollData})}
+  updatePollDisplay();
+}
+function updatePollDisplay(){
+  Object.keys(pollData).forEach(function(k,i){
+    var el=document.getElementById('pv-'+k);
+    if(!el)el=document.getElementById('pv-mc-'+i);
+    if(el)el.textContent=pollData[k];
+  });
+  renderBars();
+}
 function renderBars(){
   var entries=Object.entries(pollData);
   var t=entries.reduce(function(a,e){return a+e[1]},0);
@@ -379,8 +447,24 @@ function renderQueueNav(){
     '<button class="btn btn-ghost btn-sm" onclick="prevQ()">&larr; Prev</button> '+
     '<button class="btn btn-primary btn-sm" onclick="nextQ()" style="width:auto;padding:8px 24px">Next Question &rarr;</button></div>';
 }
-function nextQ(){if(pollQIdx<pollQueue.length-1){pollQIdx++;applyQueueQuestion();var n=document.getElementById('q-num');if(n)n.textContent=pollQIdx+1}}
-function prevQ(){if(pollQIdx>0){pollQIdx--;applyQueueQuestion();var n=document.getElementById('q-num');if(n)n.textContent=pollQIdx+1}}
+function nextQ(){
+  if(pollQIdx<pollQueue.length-1){
+    pollQIdx++;
+    applyQueueQuestion();
+    if(sessionRef){sessionRef.child('poll').set({qIdx:pollQIdx,data:pollData})}
+    var n=document.getElementById('q-num');
+    if(n)n.textContent=pollQIdx+1;
+  }
+}
+function prevQ(){
+  if(pollQIdx>0){
+    pollQIdx--;
+    applyQueueQuestion();
+    if(sessionRef){sessionRef.child('poll').set({qIdx:pollQIdx,data:pollData})}
+    var n=document.getElementById('q-num');
+    if(n)n.textContent=pollQIdx+1;
+  }
+}
 
 // Rating
 var rv=[0,0,0,0,0];
@@ -389,7 +473,11 @@ function initRate(){
   for(var i=1;i<=5;i++)h+='<span class="star-btn" onclick="castRate('+i+')" onmouseenter="hoverRate('+i+')" onmouseleave="hoverRate(0)">&#9733;</span>';
   c.innerHTML=h;renderRate()
 }
-function castRate(v){rv[v-1]++;renderRate()}
+function castRate(v){
+  rv[v-1]++;
+  if(sessionRef){sessionRef.child('rating').set(rv)}
+  renderRate();
+}
 function hoverRate(v){document.querySelectorAll('.star-btn').forEach(function(s,i){s.style.color=i<v?'#F59E0B':'#2a2a35'})}
 function renderRate(){
   var t=rv.reduce(function(a,b){return a+b},0),sm=rv.reduce(function(a,b,i){return a+b*(i+1)},0),av=t?(sm/t).toFixed(1):'0.0';

@@ -1,4 +1,30 @@
 .claude/worktrees/
 
-# Internal hackathon reference — not for judges or public repo
+# Internal hackathon docs (not for public repo)
 HACKATHON-RULES.md
+3-MINUTE-DEMO-SCRIPT.md
+PITCH.md
+SELF-TESTING-GUIDE.md
+session-log.md
+ONE-PAGER.md
+SESSION-HANDOFF.md
+DEMO-SCRIPT.md
+JUDGE-FAQ.md
+
+# Debug and artifacts
+debug.log
+*.log
+nul
+
+# Internal dev documentation
+BRANDING-ICONS.md
+FUTURE-FEATURES.md
+ICON-CREATION-QUICK-GUIDE.md
+KNOWN-ISSUES.md
+NEXT-STEPS.md
+RESEARCH.md
+ROADMAP.md
+TRANSCRIPT-FEATURE-EXPLAINED.md
+ZOOM-SETUP-GUIDE.md
+ZOOM-SHORTCUTS.md
+

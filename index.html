@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CueBoard — The Physical Control Surface for Virtual Events</title>
+    <title>CueBoard - The Physical Control Surface for Virtual Meetings</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -12,17 +12,20 @@
             --bg-primary: #0a0a0f;
             --bg-card: #12121a;
             --bg-card-hover: #1a1a25;
-            --accent: #00d4aa;
-            --accent-dim: #00d4aa22;
-            --accent-mid: #00d4aa55;
+            --accent: #8B5CF6;
+            --accent-dim: #8B5CF622;
+            --accent-mid: #8B5CF655;
+            --green: #10B981;
+            --green-dim: #10B98122;
+            --green-mid: #10B98155;
             --text-primary: #e8e8ef;
             --text-secondary: #8888a0;
             --text-muted: #55556a;
             --border: #22222f;
-            --red: #ff4d6a;
-            --orange: #ff9f43;
-            --blue: #4dabf7;
-            --purple: #b197fc;
+            --red: #EF4444;
+            --orange: #F59E0B;
+            --blue: #3B82F6;
+            --purple: #8B5CF6;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -72,12 +75,12 @@
             font-size: 0.7rem;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: var(--accent);
-            border: 1px solid var(--accent-mid);
+            color: var(--green);
+            border: 1px solid var(--green-mid);
             padding: 0.4rem 1.2rem;
             border-radius: 100px;
             margin-bottom: 2rem;
-            background: var(--accent-dim);
+            background: var(--green-dim);
             animation: fadeIn 0.8s ease-out;
         }
 
@@ -177,48 +180,6 @@
             font-weight: 300;
         }
 
-        /* ===== 8-MINUTE RULE CALLOUT ===== */
-        .rule-callout {
-            border: 1px solid var(--orange);
-            background: linear-gradient(135deg, #ff9f4308 0%, #ff4d6a08 100%);
-            border-radius: 12px;
-            padding: 2.5rem;
-            margin: 3rem 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .rule-callout::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(to bottom, var(--orange), var(--red));
-        }
-
-        .rule-callout .rule-title {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.8rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--orange);
-            margin-bottom: 1rem;
-        }
-
-        .rule-callout .big-stat {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--red);
-            line-height: 1;
-            margin-bottom: 0.5rem;
-        }
-
-        .rule-callout p {
-            color: var(--text-secondary);
-            font-size: 1.05rem;
-        }
-
         /* ===== KEYPAD PAGES ===== */
         .pages-grid {
             display: grid;
@@ -250,8 +211,8 @@
             height: 3px;
         }
 
-        .page-card:nth-child(1)::before { background: var(--accent); }
-        .page-card:nth-child(2)::before { background: var(--blue); }
+        .page-card:nth-child(1)::before { background: var(--green); }
+        .page-card:nth-child(2)::before { background: var(--accent); }
         .page-card:nth-child(3)::before { background: var(--orange); }
 
         .page-number {
@@ -262,8 +223,8 @@
             margin-bottom: 0.75rem;
         }
 
-        .page-card:nth-child(1) .page-number { color: var(--accent); }
-        .page-card:nth-child(2) .page-number { color: var(--blue); }
+        .page-card:nth-child(1) .page-number { color: var(--green); }
+        .page-card:nth-child(2) .page-number { color: var(--accent); }
         .page-card:nth-child(3) .page-number { color: var(--orange); }
 
         .page-card h3 {
@@ -296,80 +257,90 @@
             letter-spacing: 0.02em;
         }
 
-        /* ===== DIAL SECTION ===== */
-        .dial-features {
+        /* ===== ARCHITECTURE ===== */
+        .arch-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
             margin-top: 2rem;
         }
 
-        .dial-feature {
-            display: flex;
-            gap: 1rem;
-            align-items: flex-start;
-        }
-
-        .dial-icon {
-            width: 48px;
-            height: 48px;
+        .arch-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             border-radius: 12px;
-            background: var(--accent-dim);
-            border: 1px solid var(--accent-mid);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
+            padding: 1.5rem;
         }
 
-        .dial-icon svg {
-            width: 22px;
-            height: 22px;
-            stroke: var(--accent);
-        }
-
-        .dial-feature h4 {
+        .arch-card h4 {
+            color: var(--accent);
             font-size: 1rem;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.75rem;
+            font-family: 'Space Mono', monospace;
         }
 
-        .dial-feature p {
-            font-size: 0.9rem;
+        .arch-card p {
             color: var(--text-secondary);
+            font-size: 0.9rem;
         }
 
-        /* ===== PLATFORM STRIP ===== */
-        .platform-section {
-            text-align: center;
-            padding: 5rem 2rem;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
+        .arch-diagram {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            overflow-x: auto;
         }
 
-        .platform-logos {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 3rem;
-            flex-wrap: wrap;
+        .arch-diagram .layer {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .arch-diagram .layer-hw { background: var(--green-dim); border: 1px solid var(--green-mid); }
+        .arch-diagram .layer-plugin { background: var(--accent-dim); border: 1px solid var(--accent-mid); }
+        .arch-diagram .layer-services { background: #3B82F622; border: 1px solid #3B82F655; }
+        .arch-diagram .layer-output { background: #F59E0B22; border: 1px solid #F59E0B55; }
+
+        .arch-diagram .layer-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .arch-diagram .layer-hw .layer-title { color: var(--green); }
+        .arch-diagram .layer-plugin .layer-title { color: var(--accent); }
+        .arch-diagram .layer-services .layer-title { color: var(--blue); }
+        .arch-diagram .layer-output .layer-title { color: var(--orange); }
+
+        /* ===== FAQ ===== */
+        .faq-grid {
+            display: grid;
+            gap: 1rem;
             margin-top: 2rem;
         }
 
-        .platform-logo {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            padding: 1rem 1.5rem;
+        .faq-item {
+            background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            letter-spacing: 0.05em;
+            border-radius: 12px;
+            padding: 1.5rem;
         }
 
-        .platform-logo:hover {
-            border-color: var(--accent-mid);
-            color: var(--accent);
-            background: var(--accent-dim);
+        .faq-item h4 {
+            color: var(--text-primary);
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .faq-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
         }
 
         /* ===== TECH STACK ===== */
@@ -405,9 +376,9 @@
             font-size: 0.75rem;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: var(--orange);
-            border: 1px solid var(--orange);
-            background: #ff9f4311;
+            color: var(--green);
+            border: 1px solid var(--green);
+            background: var(--green-dim);
             padding: 0.5rem 1.2rem;
             border-radius: 100px;
             margin-bottom: 2rem;
@@ -417,7 +388,7 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: var(--orange);
+            background: var(--green);
             animation: pulse 1.5s ease-in-out infinite;
         }
 
@@ -434,6 +405,45 @@
             margin: 0 auto;
             font-size: 1.1rem;
             font-weight: 300;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            letter-spacing: 0.05em;
+        }
+
+        .cta-btn.primary {
+            background: var(--accent);
+            color: white;
+            border: 1px solid var(--accent);
+        }
+
+        .cta-btn.primary:hover {
+            background: #7C3AED;
+        }
+
+        .cta-btn.secondary {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .cta-btn.secondary:hover {
+            border-color: var(--accent-mid);
+            color: var(--accent);
         }
 
         /* ===== FOOTER ===== */
@@ -473,8 +483,8 @@
         @media (max-width: 768px) {
             .hero-stats { flex-direction: column; gap: 1.5rem; }
             .pages-grid { grid-template-columns: 1fr; }
-            .platform-logos { gap: 1rem; }
             .section { padding: 4rem 1.5rem; }
+            .cta-buttons { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
@@ -484,21 +494,21 @@
 
 <!-- HERO -->
 <section class="hero">
-    <div class="badge">DevStudio 2026 by Logitech — Challenge Submission</div>
+    <div class="badge">Top 50 of 1,300+ Entries | DevStudio 2026 by Logitech</div>
     <h1>Cue<span class="accent">Board</span></h1>
-    <p class="subtitle">The physical control surface for virtual events. One-touch meeting controls, real-time moment flagging, and instant action item export — across every platform.</p>
+    <p class="subtitle">The first physical control surface purpose-built for virtual meetings. Instant Zoom controls, real-time moment flagging, and one-click action item export.</p>
     <div class="hero-stats">
         <div class="hero-stat">
             <div class="number">3</div>
             <div class="label">Keypad Pages</div>
         </div>
         <div class="hero-stat">
-            <div class="number">27</div>
+            <div class="number">25</div>
             <div class="label">One-Touch Actions</div>
         </div>
         <div class="hero-stat">
-            <div class="number">5+</div>
-            <div class="label">Platforms Supported</div>
+            <div class="number">8</div>
+            <div class="label">Action Ring Slots</div>
         </div>
     </div>
     <div class="scroll-indicator">
@@ -511,133 +521,175 @@
 <section class="section fade-in">
     <div class="section-label">The Problem</div>
     <h2>Meetings run on software.<br>But software is fighting you.</h2>
-    <p class="lead">Every virtual meeting has an invisible operator — someone hunting through nested menus for the breakout room button, the record toggle, the host transfer option. All while participants watch and wait.</p>
-
-    <div class="rule-callout">
-        <div class="rule-title">The 8-Minute Rule</div>
-        <div class="big-stat">50% drop</div>
-        <p>If action items aren't captured and distributed within 8 minutes of a meeting ending, completion rates drop by half. After 24 hours, they drop by 80%. Nobody is tracking the key moments while they're happening — because there's no tool designed for it.</p>
-    </div>
+    <p class="lead">Every virtual meeting has an invisible operator hunting through nested menus for the mute button, the record toggle, the share screen option. All while participants watch and wait. CueBoard fixes that.</p>
 </section>
 
 <!-- KEYPAD PAGES -->
 <section class="section fade-in">
     <div class="section-label">The Solution</div>
     <h2>Three pages. Every control you need.</h2>
-    <p class="lead">CueBoard maps the MX Creative Console's LCD keypad to three distinct modes of meeting operation — each one built for a different job.</p>
+    <p class="lead">CueBoard maps the Logitech MX Creative Console to three distinct modes of meeting operation, each built for a different job.</p>
 
     <div class="pages-grid">
         <div class="page-card">
-            <div class="page-number">Page 01</div>
-            <h3>Live Meeting Controls</h3>
-            <p>The essentials every participant and host needs, with live status indicators on every LCD button.</p>
+            <div class="page-number">Page 01 | Live Controls</div>
+            <h3>For Everyone</h3>
+            <p>The essentials every participant needs. One button, one action. No modifier keys to remember.</p>
             <ul class="button-list">
                 <li>Mute/Unmute</li>
-                <li>Camera</li>
+                <li>Camera On/Off</li>
                 <li>Record</li>
-                <li>Share Screen</li>
-                <li>Reactions</li>
-                <li>Quick Add All</li>
-                <li>Switch Host</li>
-                <li>Chat</li>
+                <li>Screen Share</li>
+                <li>Open Chat</li>
+                <li>Reaction</li>
                 <li>Raise Hand</li>
+                <li>View Toggle</li>
+                <li>End Meeting</li>
             </ul>
         </div>
 
         <div class="page-card">
-            <div class="page-number">Page 02</div>
-            <h3>Event Operator Mode</h3>
-            <p>Purpose-built for the person running the tech — breakout rooms, timers, and crowd control in one touch.</p>
+            <div class="page-number">Page 02 | Operator Mode</div>
+            <h3>For Hosts</h3>
+            <p>Host power tools for facilitators, workshop leaders, and anyone running the meeting.</p>
             <ul class="button-list">
-                <li>Breakout Rooms</li>
-                <li>Set Timer</li>
                 <li>Mute All</li>
-                <li>Spotlight</li>
-                <li>Whiteboard</li>
-                <li>Waiting Room</li>
-                <li>Lock Meeting</li>
-                <li>Announce</li>
-                <li>End Breakout</li>
+                <li>Fullscreen</li>
+                <li>Pause Share</li>
+                <li>Minimize Window</li>
+                <li>Timer Start/Pause</li>
+                <li>Copy Invite</li>
+                <li>Clear Timer</li>
             </ul>
         </div>
 
         <div class="page-card">
-            <div class="page-number">Page 03</div>
-            <h3>Recording Intelligence</h3>
-            <p>Flag moments in real time. Export a structured summary the instant the meeting ends.</p>
+            <div class="page-number">Page 03 | Meeting Intelligence</div>
+            <h3>For Note-Takers</h3>
+            <p>Flag important moments in real time. Export a structured summary the instant the meeting ends.</p>
             <ul class="button-list">
                 <li>Flag Moment</li>
-                <li>Action Item</li>
-                <li>Decision Made</li>
-                <li>Follow Up</li>
-                <li>Screenshot</li>
-                <li>Transcription</li>
-                <li>Captions</li>
-                <li>Pause/Resume</li>
-                <li>Export Flags</li>
+                <li>Engage Setup</li>
+                <li>Add Note</li>
+                <li>Clear Last</li>
+                <li>Highlight</li>
+                <li>Interactive Poll</li>
+                <li>Reset Meeting</li>
+                <li>Load Transcript</li>
+                <li>Export Summary</li>
             </ul>
         </div>
     </div>
 </section>
 
-<!-- DIAL & ACTIONS RING -->
+<!-- DIAL & ACTION RING -->
 <section class="section fade-in">
-    <div class="section-label">Analog Precision</div>
-    <h2>The dial adapts to context.</h2>
-    <p class="lead">The MX Creative Dial and Actions Ring provide smooth, context-sensitive analog control that buttons alone can't deliver.</p>
+    <div class="section-label">Hardware Integration</div>
+    <h2>The dial is the differentiator.</h2>
+    <p class="lead">Page 3's Flag Type dial is the star feature. Rotate to select Action Item, Decision, Follow-Up, or Bookmark. Press to confirm. Every flag gets categorized instantly.</p>
 
-    <div class="dial-features">
-        <div class="dial-feature">
-            <div class="dial-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>
-            </div>
-            <div>
-                <h4>Volume Control</h4>
-                <p>Default mode. Smooth analog adjustment of system or meeting audio.</p>
-            </div>
+    <div class="arch-grid">
+        <div class="arch-card">
+            <h4>Flag Type Dial</h4>
+            <p>Rotate to cycle through flag types. Purple for Action Items. Blue for Decisions. Green for Follow-Ups. Yellow for Bookmarks. Press to confirm selection.</p>
         </div>
-        <div class="dial-feature">
-            <div class="dial-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            </div>
-            <div>
-                <h4>Timer Duration</h4>
-                <p>Press Timer, then twist. Set countdown duration with precise physical control.</p>
-            </div>
+        <div class="arch-card">
+            <h4>Timer Dial</h4>
+            <p>Adjust countdown duration from 1-60 minutes. The floating overlay stays visible during screen share with color-coded urgency.</p>
         </div>
-        <div class="dial-feature">
-            <div class="dial-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-            </div>
-            <div>
-                <h4>Background Blur</h4>
-                <p>Real-time blur intensity adjustment. Find the exact level between sharp and fully blurred.</p>
-            </div>
+        <div class="arch-card">
+            <h4>Action Ring</h4>
+            <p>8 radial slots for one-press access to any CueBoard action. Direct shortcuts for each flag color without touching the dial.</p>
         </div>
-        <div class="dial-feature">
-            <div class="dial-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
-            </div>
-            <div>
-                <h4>Actions Ring</h4>
-                <p>Quick-switch between all three keypad pages and access frequent shortcuts from the MX Master 4.</p>
-            </div>
+        <div class="arch-card">
+            <h4>Toast Notifications</h4>
+            <p>Every action shows instant feedback. "Muted," "Flag Added," "Timer Started." You always know what just happened.</p>
         </div>
     </div>
 </section>
 
-<!-- PLATFORMS -->
-<section class="platform-section fade-in">
-    <div class="section-label">Platform Agnostic</div>
-    <h2 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.75rem;">One plugin. Every platform.<br>Same muscle memory.</h2>
-    <p style="color: var(--text-secondary); font-size: 1.05rem; max-width: 600px; margin: 0 auto;">CueBoard auto-detects your active meeting app and adapts all controls automatically. Switch platforms without relearning anything.</p>
-    <div class="platform-logos">
-        <div class="platform-logo">Zoom</div>
-        <div class="platform-logo">Microsoft Teams</div>
-        <div class="platform-logo">Google Meet</div>
-        <div class="platform-logo">Webex</div>
-        <div class="platform-logo">Jitsi</div>
-        <div class="platform-logo">+ More</div>
+<!-- ARCHITECTURE -->
+<section class="section fade-in">
+    <div class="section-label">Architecture</div>
+    <h2>How CueBoard works.</h2>
+    <p class="lead">A clean four-layer architecture. Hardware at the bottom, user-facing output at the top. Everything local, everything fast.</p>
+
+    <div class="arch-diagram">
+        <div class="layer layer-output">
+            <div class="layer-title">OUTPUT LAYER</div>
+            Export Summary (HTML) | Timer Overlay (PowerShell) | Toast Notifications | Engage Page (GitHub Pages)
+        </div>
+        <div class="layer layer-services">
+            <div class="layer-title">SERVICES LAYER</div>
+            KeyboardService | TimerService | FlagService | TranscriptService | ExportService | ToastService | InputDialogService
+        </div>
+        <div class="layer layer-plugin">
+            <div class="layer-title">PLUGIN LAYER</div>
+            CueBoardPlugin.dll (C# / .NET 8) | 25 Command Classes | 3 Dial Handlers | SessionState
+        </div>
+        <div class="layer layer-hw">
+            <div class="layer-title">HARDWARE LAYER</div>
+            Logitech MX Creative Console (Keypad + Dialpad + Action Ring) | Logi Options+ | Logi Actions SDK
+        </div>
+    </div>
+</section>
+
+<!-- ENGAGE -->
+<section class="section fade-in">
+    <div class="section-label">Audience Engagement</div>
+    <h2>Interactive polls without Zoom Pro.</h2>
+    <p class="lead">CueBoard includes a hosted engagement page for word clouds, live polls, star ratings, and feedback collection. Share a link, get instant participation.</p>
+
+    <div class="arch-grid">
+        <div class="arch-card">
+            <h4>Word Cloud</h4>
+            <p>Attendees type words, cloud builds in real time. Perfect for icebreakers and brainstorming.</p>
+        </div>
+        <div class="arch-card">
+            <h4>Live Polls</h4>
+            <p>Yes/No, True/False, or custom multiple choice. Multi-question queue with Next/Prev navigation.</p>
+        </div>
+        <div class="arch-card">
+            <h4>Star Ratings</h4>
+            <p>1-5 star ratings with live average and distribution bars. Great for session feedback.</p>
+        </div>
+        <div class="arch-card">
+            <h4>Feedback Form</h4>
+            <p>Name + message opens attendee's email client with a pre-filled draft to your configured address.</p>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="section fade-in">
+    <div class="section-label">Frequently Asked Questions</div>
+    <h2>What judges want to know.</h2>
+
+    <div class="faq-grid">
+        <div class="faq-item">
+            <h4>Is this just keyboard shortcuts?</h4>
+            <p>For Page 1, yes. But the value is speed, visibility, and muscle memory. Buttons show current state (MUTED vs LIVE). You know you hit Mute without checking the screen. Like a mixing board vs keyboard shortcuts for audio editing.</p>
+        </div>
+        <div class="faq-item">
+            <h4>What makes Meeting Intelligence different from AI tools?</h4>
+            <p>AI tools capture everything and summarize. CueBoard lets the human decide what matters. Press a button when something important happens. The flag gets timestamped, categorized, and exported instantly. AI gives you the raw footage. CueBoard gives you the director's cut.</p>
+        </div>
+        <div class="faq-item">
+            <h4>Does this use cloud or external APIs?</h4>
+            <p>No cloud. No API. Everything local. Flags stored in memory, export generates local HTML, transcript parsing reads local files. Works offline. No privacy concerns.</p>
+        </div>
+        <div class="faq-item">
+            <h4>Why only Zoom?</h4>
+            <p>Focus over breadth. One polished platform beats three broken ones. The architecture supports multiple platforms. Teams and Google Meet can be added post-hackathon with different shortcut mappings.</p>
+        </div>
+        <div class="faq-item">
+            <h4>Why not use Stream Deck?</h4>
+            <p>Stream Deck is a blank canvas. CueBoard is purpose-built. The MX Creative Console has a dial that enables continuous adjustment (flag types, timer duration) that buttons can't replicate. Plus, this is a Logitech hackathon.</p>
+        </div>
+        <div class="faq-item">
+            <h4>What's the biggest technical challenge?</h4>
+            <p>Async input dialogs that don't block the plugin's main thread. PowerShell-based UI elements that appear outside the plugin while maintaining responsiveness. Also, auto-detecting and parsing Zoom's various transcript file formats.</p>
+        </div>
     </div>
 </section>
 
@@ -646,17 +698,14 @@
     <div class="section-label">Built With</div>
     <h2>Technology Stack</h2>
     <div class="tech-grid">
-        <span class="tech-tag">C# / .NET</span>
+        <span class="tech-tag">C# / .NET 8</span>
         <span class="tech-tag">Logi Actions SDK</span>
         <span class="tech-tag">Logi Options+</span>
-        <span class="tech-tag">Visual Studio 2022</span>
-        <span class="tech-tag">Logi Plugin Tool</span>
-        <span class="tech-tag">Zoom SDK</span>
-        <span class="tech-tag">Microsoft Teams API</span>
-        <span class="tech-tag">Google Meet Shortcuts</span>
-        <span class="tech-tag">Markdown Export</span>
-        <span class="tech-tag">PDF Generation</span>
-        <span class="tech-tag">YAML Configuration</span>
+        <span class="tech-tag">Win32 keybd_event</span>
+        <span class="tech-tag">PowerShell Overlays</span>
+        <span class="tech-tag">HTML/CSS Export</span>
+        <span class="tech-tag">GitHub Pages</span>
+        <span class="tech-tag">Zoom Workplace</span>
     </div>
 </section>
 
@@ -664,15 +713,19 @@
 <section class="status-section fade-in">
     <div class="status-badge">
         <span class="dot"></span>
-        Concept Phase
+        Fully Built
     </div>
-    <h2>CueBoard is currently in the concept and design phase.</h2>
-    <p>This project is a submission for the DevStudio 2026 by Logitech Challenge. A working prototype will be developed upon selection for the semi-finals, using physical MX Creative Console and MX Master 4 hardware provided by Logitech.</p>
+    <h2>CueBoard is code-complete and ready for demo.</h2>
+    <p>All 25 buttons work. Timer overlay works. Export with transcript integration works. Engage page works. Built for the Logitech MX Creative Console.</p>
+    <div class="cta-buttons">
+        <a href="https://github.com/TKHatton/CueBoard" class="cta-btn primary" target="_blank">View on GitHub</a>
+        <a href="https://tkhatton.github.io/CueBoard/engage.html" class="cta-btn secondary" target="_blank">Try Engage Page</a>
+    </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-    <p>CueBoard &mdash; DevStudio 2026 Challenge Submission &mdash; <a href="https://www.logitech.com/en-us/software/marketplace/developer.html" target="_blank">Logi Actions SDK</a></p>
+    <p>CueBoard | DevStudio 2026 Challenge Submission | Built by Tyler Kenney | <a href="https://www.logitech.com/en-us/software/marketplace/developer.html" target="_blank">Logi Actions SDK</a></p>
 </footer>
 
 <script>
