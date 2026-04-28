@@ -19,7 +19,7 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page2
 
         protected override BitmapImage GetCommandImage(String actionParameter, PluginImageSize imageSize)
         {
-            return this.DrawIcon(imageSize, "minmax.png");
+            return this.DrawButton(imageSize, "MINIMIZE", new BitmapColor(42, 42, 53));
         }
     }
 }
