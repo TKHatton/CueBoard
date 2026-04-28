@@ -25,7 +25,11 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page1
             }
 
             var idx = this.State.SelectedReactionIndex;
-            this.Keyboard.SendAltShiftKey(ReactionKeys[idx]);
+            var reactionEmojis = new[] { "👏", "👍", "❤️", "😂", "🎉" };
+
+            // Note: Zoom has no keyboard shortcuts for reactions
+            // This shows a toast for demo purposes
+            this.CueBoard?.Toast?.ShowToast(reactionEmojis[idx], ReactionNames[idx], 2000);
             PluginLog.Info($"Sent reaction: {ReactionNames[idx]}");
         }
 
