@@ -417,6 +417,27 @@ function submitFb(){
 }
 
 loadFromHash();
+
+// Auto-play: ?play=1 means CueBoard's Interactive Poll button was pressed.
+// Read the saved config from localStorage, build the play URL, redirect to it,
+// and copy the share URL to clipboard so the host can paste in Zoom chat.
+(function autoPlayIfRequested(){
+  if(window.location.search.indexOf('play=1')<0)return;
+  if(window.location.hash.indexOf('#config=')===0)return; // already in play mode
+  var raw=localStorage.getItem('cueboard_engage_config');
+  if(!raw){
+    // No config yet — show a hint in the setup form.
+    var t=document.getElementById('page-sub');
+    if(t)t.textContent='No saved config yet — fill this in and click Generate to make a share link';
+    return;
+  }
+  try{
+    var b64 = btoa(unescape(encodeURIComponent(raw)));
+    var playUrl = window.location.origin + window.location.pathname + '#config=' + b64;
+    copyToClipboard(playUrl);
+    window.location.replace(playUrl);
+  }catch(e){console.error('autoPlay failed',e)}
+})();
 </script>
 </body>
 </html>
