@@ -18,25 +18,38 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page2
                 return;
             }
 
+            // Update internal state and refresh the device button BEFORE spawning the
+            // PowerShell overlay process — the spawn can take 200-400ms and was making
+            // the button feel laggy / unresponsive on press.
+            Int32 overlaySeconds = 0;
+            Boolean shouldShowOverlay = false;
+
             if (timer.RemainingSeconds <= 0 && !timer.IsRunning && !timer.IsPaused)
             {
-                // Timer is idle or expired — start fresh
                 timer.Start();
-                this.CueBoard?.TimerOverlay?.ShowTimer(timer.DurationMinutes * 60);
+                overlaySeconds = timer.DurationMinutes * 60;
+                shouldShowOverlay = true;
             }
             else if (timer.IsRunning)
             {
-                // Running → Pause
                 timer.Pause();
             }
             else if (timer.IsPaused)
             {
-                // Paused → Resume
                 timer.Start();
-                this.CueBoard?.TimerOverlay?.ShowTimer(timer.RemainingSeconds);
+                overlaySeconds = timer.RemainingSeconds;
+                shouldShowOverlay = true;
             }
 
             this.ActionImageChanged();
+
+            if (shouldShowOverlay)
+            {
+                System.Threading.Tasks.Task.Run(() =>
+                {
+                    this.CueBoard?.TimerOverlay?.ShowTimer(overlaySeconds);
+                });
+            }
         }
 
         protected override BitmapImage GetCommandImage(String actionParameter, PluginImageSize imageSize)

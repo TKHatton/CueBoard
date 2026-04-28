@@ -162,6 +162,14 @@ namespace Loupedeck.CueBoardPlugin.Services
                 ? "<button class='action-btn' onclick='toggleTranscript()'>&#128196; Transcript</button>"
                 : "";
 
+            var noTranscriptBanner = hasTranscript ? "" : @"
+    <div class='no-transcript-banner'>
+      <strong>No transcript loaded.</strong> Your flags are still timestamped below.
+      To enable transcript linking: in Zoom Workplace, open the Transcript panel and click
+      <strong>Save transcript</strong> before exporting — CueBoard auto-detects the file.
+      Or use the <strong>Load Transcript</strong> button on CueBoard to pick a .vtt manually.
+    </div>";
+
             return $@"<!DOCTYPE html>
 <html lang='en'>
 <head>
@@ -196,6 +204,8 @@ namespace Loupedeck.CueBoardPlugin.Services
   .stat.teal .stat-value {{ color: #0D9488; }}
 
   .summary {{ background: #1a1a24; border-radius: 12px; padding: 20px; margin-bottom: 24px; line-height: 1.8; color: #ccc; font-size: 14px; border-left: 3px solid #8B5CF6; }}
+  .no-transcript-banner {{ background: #28201a; border-radius: 12px; padding: 16px 20px; margin-bottom: 16px; line-height: 1.6; color: #d4b48f; font-size: 13px; border-left: 3px solid #F39C12; }}
+  .no-transcript-banner strong {{ color: #fff; }}
   .divider {{ height: 1px; background: #2a2a35; margin: 32px 0; }}
 
   /* Flag sections */
@@ -273,6 +283,7 @@ namespace Loupedeck.CueBoardPlugin.Services
   </div>
 
   {summaryHtml}
+  {noTranscriptBanner}
   <div class='divider'></div>
   {flagsHtml}
 

@@ -144,20 +144,23 @@ $okBtn.Add_Click({{
 }})
 $f.Controls.Add($okBtn)
 
-# Placeholder text
+# Placeholder text — cleared the moment focus arrives so user can type instantly
 $placeholderText = '{safePlaceholder}'
 $txt.ForeColor = [Drawing.Color]::FromArgb(120, 120, 140)
 $txt.Text = $placeholderText
+$placeholderShown = $true
 $txt.Add_GotFocus({{
-    if ($txt.Text -eq $placeholderText) {{
+    if ($script:placeholderShown) {{
         $txt.Text = ''
         $txt.ForeColor = [Drawing.Color]::White
+        $script:placeholderShown = $false
     }}
 }})
 $txt.Add_LostFocus({{
     if ($txt.Text.Trim() -eq '') {{
         $txt.ForeColor = [Drawing.Color]::FromArgb(120, 120, 140)
         $txt.Text = $placeholderText
+        $script:placeholderShown = $true
     }}
 }})
 
@@ -191,8 +194,17 @@ $f.Add_MouseDown({{ param($s,$e) $script:drag=$true; $script:dragPt=$e.Location 
 $f.Add_MouseUp({{ $script:drag=$false }})
 $f.Add_MouseMove({{ param($s,$e) if($script:drag){{ $f.Location = [Drawing.Point]::new($f.Location.X+$e.X-$script:dragPt.X, $f.Location.Y+$e.Y-$script:dragPt.Y) }} }})
 
-# Focus the text field on load
-$f.Add_Shown({{ $txt.Focus(); if ($txt.Text -eq $placeholderText) {{ $txt.SelectAll() }} }})
+# Focus the text field instantly on load and clear the placeholder so the user
+# can start typing the moment the dialog appears (no extra click required).
+$f.Add_Shown({{
+    $f.Activate()
+    $txt.Focus()
+    if ($script:placeholderShown) {{
+        $txt.Text = ''
+        $txt.ForeColor = [Drawing.Color]::White
+        $script:placeholderShown = $false
+    }}
+}})
 
 [Windows.Forms.Application]::Run($f)
 ";

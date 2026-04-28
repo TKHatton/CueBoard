@@ -12,10 +12,10 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page2
 
         protected override void RunCommand(String actionParameter)
         {
-            // Alt+N opens the rename dialog in Zoom
-            this.Keyboard?.SendAltKey(KeyboardService.KEY_N);
+            // Alt+N only fires inside the Zoom window — bring Zoom to the front first.
+            this.Keyboard?.SendAltKeyToZoom(KeyboardService.KEY_N);
             this.CueBoard?.Toast?.ShowToast("✏️", "Rename dialog opened", 2000);
-            PluginLog.Info("Opened rename dialog (Alt+N)");
+            PluginLog.Info("Opened rename dialog (Alt+N, focused Zoom first)");
         }
 
         protected override BitmapImage GetCommandImage(String actionParameter, PluginImageSize imageSize)

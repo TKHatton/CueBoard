@@ -5,16 +5,16 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page2
     public class MinMaxCommand : CueBoardCommand
     {
         public MinMaxCommand()
-            : base("Min/Max Window", "Minimize or maximize Zoom window", "Operator Mode")
+            : base("Minimize", "Minimize the active window — Zoom shows its floating thumbnail", "Operator Mode")
         {
         }
 
         protected override void RunCommand(String actionParameter)
         {
-            // Win+Down minimizes the active window
+            // Win+Down minimizes the active window. When Zoom is in front, this triggers
+            // its floating thumbnail mode — which is the demo behavior Tyler wants.
             this.Keyboard?.SendWinDown();
-            PluginLog.Info("Window minimized (Win+Down)");
-            this.CueBoard?.Toast?.ShowToast("🪟", "Window minimized", 2000);
+            this.CueBoard?.Toast?.ShowToast("🪟", "Minimized", 1500);
         }
 
         protected override BitmapImage GetCommandImage(String actionParameter, PluginImageSize imageSize)

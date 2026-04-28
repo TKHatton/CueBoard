@@ -54,11 +54,10 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page3
         {
             if (this._capturing)
             {
-                return this.DrawButton(imageSize, "ACTION\nTYPING...", new BitmapColor(13, 148, 136));
+                return this.DrawButton(imageSize, "ACTION\nTYPING...", new BitmapColor(139, 92, 246));
             }
 
-            // Bright teal — visually distinct from purple Flag button
-            return this.DrawButton(imageSize, "ACTION\nITEM", new BitmapColor(13, 148, 136));
+            return this.DrawButton(imageSize, "ACTION\nITEM", new BitmapColor(139, 92, 246));
         }
     }
 }

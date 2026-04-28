@@ -39,8 +39,9 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page3
                     });
                 }
 
-                this.CueBoard?.Toast?.ShowToast("\uD83D\uDCCA", "Engagement tools launched", 2000);
-                PluginLog.Info($"Engagement page opened: {filePath}");
+                this.CueBoard?.Toast?.ShowToast("\uD83D\uDCCA", "Engage open - link copied", 3000);
+                CopyToClipboard(filePath);
+                PluginLog.Info($"Engagement page opened and link copied: {filePath}");
             }
             catch (Exception ex)
             {
@@ -51,6 +52,30 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page3
         protected override BitmapImage GetCommandImage(String actionParameter, PluginImageSize imageSize)
         {
             return this.DrawIcon(imageSize, "poll.png");
+        }
+
+        private static void CopyToClipboard(String filePath)
+        {
+            try
+            {
+                var url = new Uri(filePath).AbsoluteUri;
+                var psi = new ProcessStartInfo
+                {
+                    FileName = "powershell.exe",
+                    Arguments = $"-NoProfile -ExecutionPolicy Bypass -Command \"Set-Clipboard -Value '{url.Replace("'", "''")}'\"",
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                    WindowStyle = ProcessWindowStyle.Hidden
+                };
+                using (var proc = Process.Start(psi))
+                {
+                    proc?.WaitForExit(3000);
+                }
+            }
+            catch (Exception ex)
+            {
+                PluginLog.Warning($"Clipboard copy failed: {ex.Message}");
+            }
         }
 
         private static String GenerateEngagementPage()
@@ -402,6 +427,47 @@ function submitFb(){
   document.getElementById('fb-success').style.display='block'}
 
 initRate();initFb();setPollType('yn');
+
+// ===== PRE-MEETING CONFIG (set via setup.html) =====
+// Loads {wordCloudPrompt, ratingPrompt, pollQuestions:[{type,text,options}]} from localStorage.
+// pollQuestions queue is cycled via the Next Question button.
+var preset=null;var pollQueue=[];var pollQIdx=0;
+function loadPreset(){
+  try{var raw=localStorage.getItem('cueboard_engage_config');if(!raw)return;preset=JSON.parse(raw);
+    if(preset.wordCloudPrompt){
+      var wcHeader=document.createElement('div');wcHeader.className='gap-12';wcHeader.style.cssText='text-align:center;font-size:17px;font-weight:600;color:#fff;padding:14px;background:#1a1a24;border-radius:12px';
+      wcHeader.textContent=preset.wordCloudPrompt;
+      var cloudPanel=document.getElementById('p-cloud');cloudPanel.insertBefore(wcHeader,cloudPanel.firstChild);
+    }
+    if(preset.ratingPrompt){
+      var rateInput=document.querySelector('#p-rate input[type=text]');if(rateInput)rateInput.value=preset.ratingPrompt;
+    }
+    if(preset.pollQuestions&&preset.pollQuestions.length){
+      pollQueue=preset.pollQuestions;pollQIdx=0;applyQueueQuestion();renderQueueNav();
+    }
+  }catch(e){console.log('No preset',e)}
+}
+function applyQueueQuestion(){
+  if(!pollQueue.length)return;
+  var q=pollQueue[pollQIdx];
+  setPollType(q.type||'yn');
+  var qInput=document.getElementById('poll-q-input');if(qInput)qInput.value=q.text||'';
+  if(q.type==='mc'&&q.options&&q.options.length){
+    mcOptions=q.options.slice();pollData={};mcOptions.forEach(function(o){pollData[o]=0});renderMcOpts();
+  }
+}
+function renderQueueNav(){
+  var existing=document.getElementById('queue-nav');if(existing)existing.remove();
+  if(pollQueue.length<=1)return;
+  var nav=document.createElement('div');nav.id='queue-nav';nav.className='center gap-12';nav.style.cssText='margin-top:12px;padding:10px;background:#1a1a24;border-radius:10px';
+  nav.innerHTML='<div style=""font-size:11px;color:#888;margin-bottom:6px"">QUESTION <span id=""q-num"">'+(pollQIdx+1)+'</span> OF '+pollQueue.length+'</div>'+
+    '<button class=""btn btn-ghost btn-sm"" onclick=""prevQ()"">&larr; Prev</button> '+
+    '<button class=""btn btn-primary btn-sm"" onclick=""nextQ()"" style=""width:auto;padding:8px 24px"">Next Question &rarr;</button>';
+  document.getElementById('p-poll').appendChild(nav);
+}
+function nextQ(){if(pollQIdx<pollQueue.length-1){pollQIdx++;applyQueueQuestion();document.getElementById('q-num').textContent=pollQIdx+1}}
+function prevQ(){if(pollQIdx>0){pollQIdx--;applyQueueQuestion();document.getElementById('q-num').textContent=pollQIdx+1}}
+loadPreset();
 </script>
 </body>
 </html>";

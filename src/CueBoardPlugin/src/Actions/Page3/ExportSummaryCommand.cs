@@ -22,7 +22,8 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page3
                 return;
             }
 
-            // Try to auto-detect a transcript file
+            // Auto-detect a transcript file. If none exists, leave it empty — the export
+            // HTML shows an honest banner instead of inventing fake speakers.
             var transcript = this.CueBoard?.Transcript;
             if (transcript != null && !transcript.HasTranscript)
             {
@@ -31,6 +32,10 @@ namespace Loupedeck.CueBoardPlugin.Actions.Page3
                 {
                     transcript.LoadVtt(vttPath);
                     PluginLog.Info($"Auto-detected transcript: {vttPath}");
+                }
+                else
+                {
+                    PluginLog.Info("No transcript found — export will show a load-transcript banner");
                 }
             }
 

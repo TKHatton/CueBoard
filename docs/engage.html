@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>CueBoard Engage</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',-apple-system,sans-serif;background:#0f0f13;color:#e0e0e0;min-height:100vh}
+.container{max-width:680px;margin:0 auto;padding:24px 20px}
+
+/* Header */
+.header{text-align:center;margin-bottom:20px}
+.logo{font-size:11px;font-weight:700;letter-spacing:3px;color:#8B5CF6;text-transform:uppercase;margin-bottom:4px}
+.title{font-size:22px;font-weight:700;color:#fff}
+.sub{font-size:12px;color:#888;margin-top:4px}
+
+/* ============ SETUP MODE ============ */
+.card{background:#1a1a24;border-radius:14px;padding:22px;margin-bottom:18px}
+.card h3{font-size:13px;color:#8B5CF6;text-transform:uppercase;letter-spacing:2px;margin-bottom:14px;font-weight:700}
+input[type=text],input[type=email],select,textarea{width:100%;background:#252530;border:1px solid #2a2a35;color:#fff;border-radius:8px;padding:10px 14px;font-size:14px;font-family:inherit}
+input:focus,textarea:focus,select:focus{outline:none;border-color:#8B5CF6}
+::placeholder{color:#555}
+.label{display:block;font-size:11px;color:#999;margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:1px}
+.q-row{display:flex;gap:8px;align-items:flex-start;margin-bottom:10px;padding:12px;background:#22222e;border-radius:10px}
+.q-row .num{font-size:11px;color:#666;font-weight:700;padding-top:8px;width:18px}
+.q-row .body{flex:1}
+.q-row select{width:auto;font-size:12px;padding:6px 8px;margin-bottom:6px}
+.q-row textarea{min-height:42px;font-size:13px;line-height:1.4;margin-bottom:6px;resize:vertical}
+.q-row .del{background:transparent;color:#666;border:none;cursor:pointer;font-size:18px;padding:6px}
+.q-row .del:hover{color:#E74C3C}
+.tip{font-size:12px;color:#666;margin-top:8px;line-height:1.5}
+.share-result{display:none;background:#152028;border:1px solid #2ECC71;border-radius:12px;padding:18px;margin-top:18px}
+.share-result.visible{display:block}
+.share-result .ok{color:#2ECC71;font-weight:700;margin-bottom:8px}
+.share-result .url-box{background:#0f0f13;border-radius:8px;padding:10px 12px;font-family:'Consolas',monospace;font-size:11px;color:#aaa;word-break:break-all;line-height:1.4}
+.share-actions{display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+
+/* ============ PLAY MODE ============ */
+.tabs{display:flex;gap:3px;margin-bottom:20px;background:#1a1a24;border-radius:12px;padding:3px}
+.tab{flex:1;padding:10px 8px;text-align:center;border-radius:10px;cursor:pointer;font-size:13px;font-weight:600;color:#666;transition:all .2s}
+.tab:hover{color:#aaa}
+.tab.active{background:#8B5CF6;color:#fff}
+.panel{display:none}.panel.active{display:block}
+
+.btn{padding:11px 22px;border-radius:9px;border:none;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit}
+.btn-primary{background:#8B5CF6;color:#fff}.btn-primary:hover{background:#7C3AED}
+.btn-primary:active{transform:scale(.98)}
+.btn-ghost{background:#2a2a35;color:#ccc}.btn-ghost:hover{background:#353545}
+.btn-sm{padding:7px 14px;font-size:12px}
+.row{display:flex;gap:8px}
+.center{text-align:center}
+.muted{color:#888;font-size:13px}
+.gap-8{margin-bottom:8px}.gap-12{margin-bottom:12px}.gap-16{margin-bottom:16px}.gap-20{margin-bottom:20px}
+
+.cloud-box{background:#1a1a24;border-radius:16px;padding:28px;min-height:240px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px}
+.cloud-word{display:inline-block;padding:3px 10px;border-radius:8px;transition:transform .2s}
+.cloud-word:hover{transform:scale(1.12)}
+.cloud-empty{color:#333;font-size:15px;font-style:italic}
+.cloud-prompt{text-align:center;font-size:17px;font-weight:600;color:#fff;padding:14px;background:#1a1a24;border-radius:12px;margin-bottom:12px}
+
+.poll-q{font-size:18px;font-weight:700;color:#fff;text-align:center;padding:16px;background:#1a1a24;border-radius:12px}
+.poll-opts{display:flex;gap:12px;justify-content:center}
+.poll-opt{flex:1;max-width:160px;padding:20px 12px;background:#1a1a24;border-radius:14px;text-align:center;cursor:pointer;transition:all .2s;border:2px solid transparent}
+.poll-opt:hover{border-color:#8B5CF6;transform:scale(1.03)}
+.poll-emoji{font-size:32px;margin-bottom:6px}
+.poll-lbl{font-size:15px;font-weight:600}
+.poll-num{font-size:22px;font-weight:700;color:#8B5CF6;margin-top:6px}
+.bar-wrap{margin-bottom:12px}
+.bar-head{display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px}
+.bar-bg{background:#1a1a24;border-radius:6px;height:28px;overflow:hidden}
+.bar-fill{height:100%;border-radius:6px;transition:width .5s;display:flex;align-items:center;padding-left:10px;font-size:12px;font-weight:600;color:#fff}
+
+.rating-big{text-align:center;padding:24px;background:#1a1a24;border-radius:16px}
+.rating-num{font-size:56px;font-weight:700;color:#F59E0B}
+.rating-stars-lg{font-size:28px;margin:6px 0}
+.star-input{display:flex;gap:6px;justify-content:center}
+.star-btn{font-size:36px;cursor:pointer;color:#2a2a35;transition:color .15s;user-select:none}
+.star-btn:hover,.star-btn.on{color:#F59E0B}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;font-size:12px}
+.bar-row .bg{flex:1;background:#1a1a24;border-radius:4px;height:10px;overflow:hidden}
+.bar-row .fl{height:100%;background:#F59E0B;border-radius:4px;transition:width .5s}
+
+.testi-card{background:#1a1a24;border-radius:16px;padding:24px}
+.success-view{display:none;text-align:center;padding:40px 20px}
+.success-icon{font-size:48px;margin-bottom:12px}
+.success-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:6px}
+
+.queue-nav{margin-top:12px;padding:10px;background:#1a1a24;border-radius:10px;text-align:center}
+.queue-counter{font-size:11px;color:#888;margin-bottom:6px}
+
+.footer{text-align:center;margin-top:28px;padding-top:14px;border-top:1px solid #1a1a24;font-size:10px;color:#333}
+@media(max-width:500px){.poll-opts{flex-direction:column;align-items:center}.poll-opt{max-width:100%;width:100%}}
+</style>
+</head>
+<body>
+<div class='container'>
+  <div class='header'>
+    <div class='logo'>CueBoard</div>
+    <div class='title' id='page-title'>Engage Setup</div>
+    <div class='sub' id='page-sub'>Configure questions before sharing the link</div>
+  </div>
+
+  <!-- ===== SETUP MODE ===== -->
+  <div id='setup-mode'>
+    <div class='card'>
+      <h3>Word Cloud Prompt</h3>
+      <input type='text' id='wc-prompt' placeholder='What is one word for...?'/>
+    </div>
+
+    <div class='card'>
+      <h3>Poll Questions <span style='float:right;font-weight:400;text-transform:none;letter-spacing:0'><button class='btn btn-ghost btn-sm' onclick='addQ()'>+ Add Question</button></span></h3>
+      <div id='q-list'></div>
+      <div class='tip'>During the live page, attendees use a "Next Question" button to cycle through.</div>
+    </div>
+
+    <div class='card'>
+      <h3>Rating Prompt</h3>
+      <input type='text' id='rate-prompt' placeholder='How would you rate this session?'/>
+    </div>
+
+    <div class='card'>
+      <h3>Feedback Email (where it goes)</h3>
+      <input type='email' id='fb-email-to' placeholder='your@email.com'/>
+      <div class='tip'>When someone submits feedback, it opens THEIR email client with a pre-filled message addressed here.</div>
+    </div>
+
+    <div class='share-actions'>
+      <button class='btn btn-ghost' onclick='clearAll()'>Clear All</button>
+      <button class='btn btn-primary' onclick='generateShareLink()'>Generate &amp; Copy Share Link</button>
+    </div>
+
+    <div id='share-result' class='share-result'>
+      <div class='ok'>Link copied to clipboard. Paste it in Zoom chat now.</div>
+      <div class='url-box' id='share-url'></div>
+      <div class='share-actions'>
+        <button class='btn btn-ghost btn-sm' onclick='copyAgain()'>Copy Again</button>
+        <button class='btn btn-primary btn-sm' onclick='previewLink()'>Preview as Attendee</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PLAY MODE ===== -->
+  <div id='play-mode' style='display:none'>
+    <div class='tabs'>
+      <div class='tab active' onclick='go("cloud")'>Word Cloud</div>
+      <div class='tab' onclick='go("poll")'>Poll</div>
+      <div class='tab' onclick='go("rate")'>Rate</div>
+      <div class='tab' onclick='go("feedback")'>Feedback</div>
+    </div>
+
+    <div class='panel active' id='p-cloud'>
+      <div id='cloud-prompt-box'></div>
+      <div class='cloud-box gap-16' id='cloud-display'><span class='cloud-empty'>Add words to build the cloud</span></div>
+      <div class='row gap-12'>
+        <input type='text' id='cloud-in' placeholder='Type a word and press Enter'/>
+        <button class='btn btn-primary btn-sm' onclick='addWord()' style='width:80px'>Add</button>
+      </div>
+    </div>
+
+    <div class='panel' id='p-poll'>
+      <div id='poll-q-display' class='poll-q gap-16'>Question</div>
+      <div class='poll-opts gap-16' id='poll-opts-container'></div>
+      <div id='poll-bars' class='gap-12'></div>
+      <div id='queue-nav-box'></div>
+    </div>
+
+    <div class='panel' id='p-rate'>
+      <div id='rate-prompt-display' class='poll-q gap-16'>Rate this session</div>
+      <div class='rating-big gap-16'>
+        <div class='rating-num' id='r-avg'>0.0</div>
+        <div class='rating-stars-lg' id='r-stars'>&#9734;&#9734;&#9734;&#9734;&#9734;</div>
+        <div class='muted' id='r-total'>0 responses</div>
+      </div>
+      <div class='center muted gap-8'>Cast your vote:</div>
+      <div class='star-input gap-16' id='star-in'></div>
+      <div id='r-bars' style='max-width:360px;margin:0 auto' class='gap-12'></div>
+    </div>
+
+    <div class='panel' id='p-feedback'>
+      <div id='fb-form'>
+        <div class='testi-card'>
+          <div class='gap-12'><label class='label'>Your Name</label><input type='text' id='fb-name' placeholder='How you want to be credited'/></div>
+          <div class='gap-16'><label class='label'>Your Feedback</label><textarea id='fb-text' placeholder='What stood out? What was most valuable?'></textarea></div>
+          <button class='btn btn-primary' onclick='submitFb()' style='width:100%'>Send Feedback</button>
+        </div>
+      </div>
+      <div class='success-view' id='fb-success'>
+        <div class='success-icon'>&#10024;</div>
+        <div class='success-title'>Thank you!</div>
+        <div class='muted'>Your email client should have opened with your feedback ready to send.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class='footer'>Powered by CueBoard</div>
+</div>
+
+<script>
+// ============ ROUTER: detect setup vs play mode from URL hash ============
+var currentConfig = null;
+function loadFromHash(){
+  var hash = window.location.hash;
+  if(hash && hash.indexOf('#config=')===0){
+    try{
+      var b64 = hash.substring(8);
+      var json = decodeURIComponent(escape(atob(b64)));
+      currentConfig = JSON.parse(json);
+      switchToPlayMode(currentConfig);
+      return;
+    }catch(e){console.error('Bad config in URL',e)}
+  }
+  switchToSetupMode();
+}
+function switchToSetupMode(){
+  document.getElementById('setup-mode').style.display='block';
+  document.getElementById('play-mode').style.display='none';
+  document.getElementById('page-title').textContent='Engage Setup';
+  document.getElementById('page-sub').textContent='Configure questions before sharing the link';
+  loadSetupFromStorage();
+}
+function switchToPlayMode(config){
+  document.getElementById('setup-mode').style.display='none';
+  document.getElementById('play-mode').style.display='block';
+  document.getElementById('page-title').textContent='Engage';
+  document.getElementById('page-sub').textContent='Live · respond and see results in real time';
+  applyConfigToPlay(config);
+  initRate();
+}
+
+// ============ SETUP MODE ============
+var questions=[];
+function loadSetupFromStorage(){
+  try{
+    var raw = localStorage.getItem('cueboard_engage_config');
+    if(!raw){addQ();return}
+    var c = JSON.parse(raw);
+    if(c.wordCloudPrompt)document.getElementById('wc-prompt').value=c.wordCloudPrompt;
+    if(c.ratingPrompt)document.getElementById('rate-prompt').value=c.ratingPrompt;
+    if(c.feedbackEmail)document.getElementById('fb-email-to').value=c.feedbackEmail;
+    if(c.pollQuestions&&c.pollQuestions.length){questions=c.pollQuestions;render()}else{addQ()}
+  }catch(e){addQ()}
+}
+function addQ(){questions.push({type:'yn',text:'',options:[]});render()}
+function delQ(i){questions.splice(i,1);render()}
+function render(){
+  var list=document.getElementById('q-list');var h='';
+  questions.forEach(function(q,i){
+    h+='<div class="q-row"><div class="num">'+(i+1)+'.</div><div class="body">';
+    h+='<select onchange="setType('+i+',this.value)"><option value="yn"'+(q.type==='yn'?' selected':'')+'>Yes / No</option><option value="tf"'+(q.type==='tf'?' selected':'')+'>True / False</option><option value="mc"'+(q.type==='mc'?' selected':'')+'>Multiple Choice</option></select>';
+    h+='<textarea placeholder="Type your question..." oninput="setText('+i+',this.value)">'+escapeHtml(q.text||'')+'</textarea>';
+    if(q.type==='mc')h+='<input type="text" placeholder="Options, comma-separated (e.g. React, Vue, Angular)" value="'+escapeAttr((q.options||[]).join(', '))+'" oninput="setOpts('+i+',this.value)" style="font-size:12px"/>';
+    h+='</div><button class="del" onclick="delQ('+i+')" title="Remove">&times;</button></div>';
+  });
+  list.innerHTML=h;
+}
+function escapeHtml(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function escapeAttr(s){return String(s).replace(/"/g,'&quot;')}
+function setType(i,v){questions[i].type=v;if(v!=='mc')questions[i].options=[];render()}
+function setText(i,v){questions[i].text=v}
+function setOpts(i,v){questions[i].options=v.split(',').map(function(s){return s.trim()}).filter(function(s){return s})}
+
+function collectConfig(){
+  return {
+    wordCloudPrompt:document.getElementById('wc-prompt').value.trim(),
+    ratingPrompt:document.getElementById('rate-prompt').value.trim(),
+    feedbackEmail:document.getElementById('fb-email-to').value.trim(),
+    pollQuestions:questions.filter(function(q){return q.text.trim()})
+  };
+}
+
+function generateShareLink(){
+  var config = collectConfig();
+  localStorage.setItem('cueboard_engage_config',JSON.stringify(config));
+  var json = JSON.stringify(config);
+  var b64 = btoa(unescape(encodeURIComponent(json)));
+  var url = window.location.origin + window.location.pathname + '#config=' + b64;
+  document.getElementById('share-url').textContent = url;
+  document.getElementById('share-result').classList.add('visible');
+  copyToClipboard(url);
+  window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+}
+function copyToClipboard(text){
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).catch(function(){fallbackCopy(text)});return}
+  fallbackCopy(text);
+}
+function fallbackCopy(text){
+  var ta = document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy')}catch(e){}
+  document.body.removeChild(ta);
+}
+function copyAgain(){copyToClipboard(document.getElementById('share-url').textContent)}
+function previewLink(){window.location.href=document.getElementById('share-url').textContent;window.location.reload()}
+function clearAll(){if(!confirm('Clear all questions and prompts?'))return;localStorage.removeItem('cueboard_engage_config');questions=[];document.getElementById('wc-prompt').value='';document.getElementById('rate-prompt').value='';document.getElementById('fb-email-to').value='';addQ();document.getElementById('share-result').classList.remove('visible')}
+
+// ============ PLAY MODE ============
+var tabs=['cloud','poll','rate','feedback'];
+function go(t){
+  document.querySelectorAll('.tab').forEach(function(el,i){el.classList.toggle('active',tabs[i]===t)});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
+  document.getElementById('p-'+t).classList.add('active');
+}
+
+function applyConfigToPlay(config){
+  if(config.wordCloudPrompt){
+    document.getElementById('cloud-prompt-box').innerHTML='<div class="cloud-prompt">'+escapeHtml(config.wordCloudPrompt)+'</div>';
+  }
+  if(config.ratingPrompt){
+    document.getElementById('rate-prompt-display').textContent=config.ratingPrompt;
+  }else{
+    document.getElementById('rate-prompt-display').textContent='Rate this session';
+  }
+  pollQueue = config.pollQuestions || [];
+  pollQIdx = 0;
+  if(pollQueue.length){applyQueueQuestion();renderQueueNav()}
+  else{document.getElementById('poll-q-display').textContent='(No poll questions configured)'}
+}
+
+// Word cloud
+var cloudWords={};
+var cc=['#8B5CF6','#3498DB','#2ECC71','#F59E0B','#E74C3C','#0D9488','#EC4899','#F97316','#06B6D4','#84CC16'];
+function addWord(){var i=document.getElementById('cloud-in'),w=i.value.trim().toLowerCase();if(!w)return;cloudWords[w]=(cloudWords[w]||0)+1;i.value='';renderCloud()}
+function renderCloud(){
+  var d=document.getElementById('cloud-display'),e=Object.entries(cloudWords).sort(function(a,b){return b[1]-a[1]});
+  if(!e.length){d.innerHTML='<span class="cloud-empty">Add words to build the cloud</span>';return}
+  var mx=e[0][1],sh=e.slice().sort(function(){return Math.random()-.5}),h='';
+  sh.forEach(function(x,i){var sz=16+Math.round((x[1]/mx)*40),op=.6+(x[1]/mx)*.4;
+    h+='<span class="cloud-word" style="font-size:'+sz+'px;color:'+cc[i%cc.length]+';opacity:'+op+'" title="'+x[0]+': '+x[1]+'">'+x[0]+'</span> '});
+  d.innerHTML=h
+}
+
+// Poll queue
+var pollQueue=[],pollQIdx=0;
+var pollData={};
+var pollPresets={
+  yn:[{key:'y',label:'Yes',emoji:'&#128077;'},{key:'n',label:'No',emoji:'&#128078;'},{key:'m',label:'Not Sure',emoji:'&#129300;'}],
+  tf:[{key:'t',label:'True',emoji:'&#9989;'},{key:'f',label:'False',emoji:'&#10060;'}]
+};
+var pollColors=['#8B5CF6','#2ECC71','#E74C3C','#F59E0B','#3498DB','#EC4899','#0D9488','#F97316'];
+
+function applyQueueQuestion(){
+  if(!pollQueue.length)return;
+  var q=pollQueue[pollQIdx];
+  document.getElementById('poll-q-display').textContent=q.text;
+  pollData={};
+  document.getElementById('poll-bars').innerHTML='';
+  if(q.type==='mc'){renderMcOpts(q.options||[])}
+  else{renderFixedOpts(q.type)}
+}
+function renderFixedOpts(type){
+  var opts = pollPresets[type] || pollPresets.yn;
+  var h=''; opts.forEach(function(o){pollData[o.key]=0;
+    h+='<div class="poll-opt" onclick="voteKey(\''+o.key+'\')"><div class="poll-emoji">'+o.emoji+'</div><div class="poll-lbl">'+o.label+'</div><div class="poll-num" id="pv-'+o.key+'">0</div></div>'});
+  document.getElementById('poll-opts-container').innerHTML=h;
+}
+function renderMcOpts(opts){
+  var h=''; opts.forEach(function(o,i){pollData[o]=0;
+    h+='<div class="poll-opt" onclick="voteMc(\''+o.replace(/\\/g,"\\\\").replace(/\'/g,"\\\'")+'\')" style="min-width:120px"><div class="poll-emoji" style="font-size:24px;color:'+pollColors[i%pollColors.length]+'">&#9679;</div><div class="poll-lbl">'+escapeHtml(o)+'</div><div class="poll-num" id="pv-mc-'+i+'">0</div></div>'});
+  document.getElementById('poll-opts-container').innerHTML='<div class="poll-opts gap-16" style="flex-wrap:wrap">'+h+'</div>';
+}
+function voteKey(k){pollData[k]=(pollData[k]||0)+1;var el=document.getElementById('pv-'+k);if(el)el.textContent=pollData[k];renderBars()}
+function voteMc(o){pollData[o]=(pollData[o]||0)+1;var keys=Object.keys(pollData);var i=keys.indexOf(o);var el=document.getElementById('pv-mc-'+i);if(el)el.textContent=pollData[o];renderBars()}
+function renderBars(){
+  var entries=Object.entries(pollData);
+  var t=entries.reduce(function(a,e){return a+e[1]},0);
+  if(!t){document.getElementById('poll-bars').innerHTML='';return}
+  var q = pollQueue[pollQIdx];
+  var h='';entries.forEach(function(e,i){
+    var lbl=e[0],cnt=e[1],p=Math.round(cnt/t*100);
+    if(q && q.type !== 'mc' && pollPresets[q.type]){var found=pollPresets[q.type].find(function(x){return x.key===lbl});if(found)lbl=found.label}
+    h+='<div class="bar-wrap"><div class="bar-head"><span>'+escapeHtml(lbl)+'</span><span>'+p+'%</span></div><div class="bar-bg"><div class="bar-fill" style="width:'+p+'%;background:'+pollColors[i%pollColors.length]+'">'+cnt+'</div></div></div>'
+  });
+  document.getElementById('poll-bars').innerHTML=h
+}
+function renderQueueNav(){
+  if(pollQueue.length<=1){document.getElementById('queue-nav-box').innerHTML='';return}
+  document.getElementById('queue-nav-box').innerHTML=
+    '<div class="queue-nav"><div class="queue-counter">QUESTION <span id="q-num">'+(pollQIdx+1)+'</span> OF '+pollQueue.length+'</div>'+
+    '<button class="btn btn-ghost btn-sm" onclick="prevQ()">&larr; Prev</button> '+
+    '<button class="btn btn-primary btn-sm" onclick="nextQ()" style="width:auto;padding:8px 24px">Next Question &rarr;</button></div>';
+}
+function nextQ(){if(pollQIdx<pollQueue.length-1){pollQIdx++;applyQueueQuestion();var n=document.getElementById('q-num');if(n)n.textContent=pollQIdx+1}}
+function prevQ(){if(pollQIdx>0){pollQIdx--;applyQueueQuestion();var n=document.getElementById('q-num');if(n)n.textContent=pollQIdx+1}}
+
+// Rating
+var rv=[0,0,0,0,0];
+function initRate(){
+  var c=document.getElementById('star-in');if(!c)return;var h='';
+  for(var i=1;i<=5;i++)h+='<span class="star-btn" onclick="castRate('+i+')" onmouseenter="hoverRate('+i+')" onmouseleave="hoverRate(0)">&#9733;</span>';
+  c.innerHTML=h;renderRate()
+}
+function castRate(v){rv[v-1]++;renderRate()}
+function hoverRate(v){document.querySelectorAll('.star-btn').forEach(function(s,i){s.style.color=i<v?'#F59E0B':'#2a2a35'})}
+function renderRate(){
+  var t=rv.reduce(function(a,b){return a+b},0),sm=rv.reduce(function(a,b,i){return a+b*(i+1)},0),av=t?(sm/t).toFixed(1):'0.0';
+  document.getElementById('r-avg').textContent=av;
+  document.getElementById('r-total').textContent=t+' response'+(t!==1?'s':'');
+  var st='',an=parseFloat(av);for(var i=1;i<=5;i++)st+=i<=Math.round(an)?'&#9733;':'&#9734;';
+  document.getElementById('r-stars').innerHTML=st;
+  var h='';for(var i=4;i>=0;i--){var p=t?Math.round(rv[i]/t*100):0;
+    h+='<div class="bar-row"><span>'+(i+1)+' &#9733;</span><div class="bg"><div class="fl" style="width:'+p+'%"></div></div><span>'+rv[i]+'</span></div>'}
+  document.getElementById('r-bars').innerHTML=h
+}
+
+// Feedback — opens a mailto: to the configured email
+function submitFb(){
+  var name=document.getElementById('fb-name').value.trim();
+  var text=document.getElementById('fb-text').value.trim();
+  if(!text){document.getElementById('fb-text').style.borderColor='#E74C3C';return}
+  var to = (currentConfig && currentConfig.feedbackEmail) ? currentConfig.feedbackEmail : '';
+  var subject = encodeURIComponent('CueBoard Engage Feedback' + (name?(' from '+name):''));
+  var body = encodeURIComponent('From: '+(name||'Anonymous')+'\n\n'+text+'\n\n— Sent via CueBoard Engage');
+  var mailto = 'mailto:'+encodeURIComponent(to)+'?subject='+subject+'&body='+body;
+  window.location.href = mailto;
+  document.getElementById('fb-form').style.display='none';
+  document.getElementById('fb-success').style.display='block';
+}
+
+loadFromHash();
+</script>
+</body>
+</html>
